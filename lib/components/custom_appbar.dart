@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hutech_go/utils/constants.dart';
 
 class AppBarWBack extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
@@ -8,11 +9,17 @@ class AppBarWBack extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: <Widget>[],
-        leading: new Container(),
+        leading: new Container(
+          child: new IconButton(
+            icon: new Icon(Icons.arrow_back),
+            color: Constants.primary,
+            onPressed: () => Navigator.of(context).pop(null),
+          ),
+        ),
       ),
     );
   }
 
   @override
-  Size get preferredSize => new Size.fromHeight(35);
+  Size get preferredSize => new Size.fromHeight(30);
 }

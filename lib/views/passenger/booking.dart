@@ -5,6 +5,7 @@ import 'package:hutech_go/components/custom_radio_grouped_button/CustomButtons/C
 import 'package:hutech_go/services/current_location.dart';
 import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/home.dart';
+import 'package:hutech_go/views/passenger/rating.dart';
 import 'package:location/location.dart';
 
 class Booking extends StatefulWidget {
@@ -123,7 +124,7 @@ class _Booking extends State<Booking> {
                           unSelectedColor: Colors.black,
                           textStyle: TextStyle(fontSize: 14)),
                       checkBoxButtonValues: (value) {
-                        print(value);
+                        Navigator.pushNamed(context, Rating.routeName);
                       },
                     ),
                     SizedBox(

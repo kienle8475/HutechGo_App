@@ -5,6 +5,7 @@ import 'package:hutech_go/components/custom_radio_grouped_button/CustomButtons/B
 import 'package:hutech_go/components/custom_radio_grouped_button/CustomButtons/CustomCheckBoxGroup.dart';
 import 'package:hutech_go/utils/constants.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'dart:math' as math;
 
 import 'booking.dart';
 
@@ -33,7 +34,7 @@ class _Rating extends State<Rating> {
                   margin: new EdgeInsets.only(
                       left: mQSize.height * 0.02,
                       right: mQSize.height * 0.02,
-                      top: mQSize.height * 0.1),
+                      top: mQSize.height * 0.08),
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -44,7 +45,7 @@ class _Rating extends State<Rating> {
                   ),
                   child: Card(
                     child: SizedBox(
-                      height: mQSize.height * 0.7,
+                      height: mQSize.height * 0.58,
                       width: mQSize.width * 0.8,
                       child: Container(
                         margin: new EdgeInsets.only(
@@ -59,7 +60,7 @@ class _Rating extends State<Rating> {
                                 "Đánh giá chuyến đi của bạn",
                                 style: TextStyle(
                                   color: Constants.primary,
-                                  fontSize: 16,
+                                  fontSize: 18,
                                 ),
                               ),
                             ),
@@ -125,7 +126,7 @@ class _Rating extends State<Rating> {
                                     buttonTextStyle: ButtonTextStyle(
                                         selectedColor: Colors.white,
                                         unSelectedColor: Constants.secondary,
-                                        textStyle: TextStyle(fontSize: 14)),
+                                        textStyle: TextStyle(fontSize: 16)),
                                     checkBoxButtonValues: (value) {
                                       print(value);
                                     },
@@ -162,14 +163,132 @@ class _Rating extends State<Rating> {
                                     buttonTextStyle: ButtonTextStyle(
                                         selectedColor: Colors.white,
                                         unSelectedColor: Constants.secondary,
-                                        textStyle: TextStyle(fontSize: 14)),
+                                        textStyle: TextStyle(fontSize: 16)),
                                     checkBoxButtonValues: (value) {
                                       print(value);
                                     },
                                   ),
-                                )
+                                ),
                               ],
-                            )
+                            ),
+                            Container(
+                              padding: EdgeInsets.only(right: 15, left: 15),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  hintText: "Chia sẻ cảm nhận của bạn nhé...",
+                                  hintStyle: TextStyle(color: Constants.light),
+                                  filled: true,
+                                  fillColor: Colors.grey[50],
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          color: Constants.secondary)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          color: Constants.secondary)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  width: mQSize.width,
+                  margin: new EdgeInsets.only(
+                      left: mQSize.height * 0.02,
+                      right: mQSize.height * 0.02,
+                      top: mQSize.height * 0.01),
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 4,
+                        color: Colors.grey[350],
+                      ),
+                    ],
+                  ),
+                  child: Card(
+                    child: SizedBox(
+                      height: mQSize.height * 0.15,
+                      width: mQSize.width * 0.8,
+                      child: Container(
+                        margin: new EdgeInsets.only(
+                            left: mQSize.height * 0.02,
+                            right: mQSize.height * 0.02,
+                            top: mQSize.height * 0.03),
+                        child: Column(
+                          children: [
+                            Container(
+                                padding: EdgeInsets.only(
+                                  right: 15,
+                                  left: 15,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(bottom: 0),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.adjust,
+                                            color: Constants.primary,
+                                            size: 24.0,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 20),
+                                            child: Text(
+                                              "Hutech A Campus - 475A Dien Bien Phu",
+                                              style: TextStyle(
+                                                  color: Colors.grey[700],
+                                                  fontSize: 14),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.only(top: 0, bottom: 0),
+                                      child: Row(
+                                        children: [
+                                          Transform.rotate(
+                                            angle: 180 * math.pi / 360,
+                                            child: Icon(
+                                              Icons.horizontal_rule,
+                                              color: Colors.grey,
+                                              size: 24.0,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(bottom: 0),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            Icons.adjust,
+                                            color: Constants.danger,
+                                            size: 24.0,
+                                          ),
+                                          Padding(
+                                            padding: EdgeInsets.only(left: 20),
+                                            child: Text(
+                                              "Hutech E Campus - SHTP Xa Lo Ha Noi",
+                                              style: TextStyle(
+                                                  color: Colors.grey[700]),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                )),
                           ],
                         ),
                       ),
@@ -209,7 +328,7 @@ class _Rating extends State<Rating> {
               ],
             ),
             Positioned(
-                top: mQSize.height * 0.05,
+                top: mQSize.height * 0.02,
                 child: Align(
                   alignment: Alignment.center,
                   child: Container(

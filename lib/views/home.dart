@@ -1,10 +1,10 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:hutech_go/components/custom_button.dart';
 import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/passenger/booking.dart';
 import 'package:hutech_go/views/passenger/rating.dart';
+
+import 'dart:math' as math;
 
 class Home extends StatefulWidget {
   static final routeName = "home";
@@ -29,6 +29,30 @@ class _Home extends State<Home> {
                     child: SizedBox(
                       height: mQSize.height * 0.2,
                       width: mQSize.width * 0.8,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 120),
+                            child: Text(
+                              "Trần Thị Anh Thư".toUpperCase(),
+                              style: TextStyle(
+                                  color: Constants.primary,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 10),
+                            child: Text(
+                              "1711060326 - 17DTHJA3",
+                              style: TextStyle(
+                                color: Constants.primary,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -43,7 +67,7 @@ class _Home extends State<Home> {
                           height: 50,
                           width: mQSize.width * 0.8,
                           press: () {
-                            Navigator.pushNamed(context, Rating.routeName);
+                            Navigator.pushNamed(context, Booking.routeName);
                           }),
                     )
                   ],
@@ -65,11 +89,14 @@ class _Home extends State<Home> {
                             spreadRadius: 2)
                       ],
                     ),
-                    child: CircleAvatar(
-                      radius: 75,
-                      backgroundColor: Colors.white,
-                      backgroundImage: AssetImage("assets/images/avatar.jpg"),
-                    )),
+                    child: Transform.rotate(
+                        angle: 180 * math.pi / 85,
+                        child: CircleAvatar(
+                          radius: 75,
+                          backgroundColor: Colors.white,
+                          backgroundImage:
+                              AssetImage("assets/images/profile_thu.jpg"),
+                        ))),
               ),
             ),
           ],
