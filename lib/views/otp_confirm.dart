@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hutech_go/components/custom_appbar.dart';
 import 'package:hutech_go/components/custom_button.dart';
 import 'package:hutech_go/utils/constants.dart';
+import 'package:hutech_go/views/home.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class OtpConfirm extends StatefulWidget {
@@ -42,15 +44,7 @@ class _OtpConfirm extends State<OtpConfirm> {
   Widget build(BuildContext context) {
     final mQSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(35),
-        child: new AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          actions: <Widget>[],
-          leading: new Container(),
-        ),
-      ),
+      appBar: AppBarWBack(),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: ListView(
@@ -131,7 +125,7 @@ class _OtpConfirm extends State<OtpConfirm> {
                       margin: EdgeInsets.only(left: 24, right: 24),
                       elevation: 6.0,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12)),
+                          borderRadius: BorderRadius.circular(4)),
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.only(left: 18, right: 18),
@@ -181,7 +175,10 @@ class _OtpConfirm extends State<OtpConfirm> {
         width: 50,
         child: FittedBox(
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                  context, Home.routeName, (route) => false);
+            },
             child: Icon(Icons.arrow_forward),
           ),
         ),

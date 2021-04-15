@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:hutech_go/components/custom_appbar.dart';
 import 'package:hutech_go/views/otp_confirm.dart';
 
 class Login extends StatefulWidget {
@@ -13,15 +14,7 @@ class _Login extends State<Login> {
   Widget build(BuildContext context) {
     final mQSize = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(35),
-        child: new AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          actions: <Widget>[],
-          leading: new Container(),
-        ),
-      ),
+      appBar: AppBarWBack(),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: ListView(
@@ -86,7 +79,7 @@ class _Login extends State<Login> {
                       margin: EdgeInsets.only(left: 20, right: 20),
                       elevation: 6.0,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
+                          borderRadius: BorderRadius.circular(4)),
                       child: Center(
                         child: Row(
                           children: <Widget>[

@@ -16,7 +16,7 @@ class RoundedButtonFill extends StatelessWidget {
       width: width,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(4.0),
             side: BorderSide(color: color)),
         onPressed: press,
         padding: EdgeInsets.all(10.0),
@@ -43,7 +43,7 @@ class RoundedButtonBorder extends StatelessWidget {
       width: width,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(4.0),
             side: BorderSide(color: color)),
         onPressed: () {},
         padding: EdgeInsets.all(10.0),
@@ -77,6 +77,33 @@ class OtpRequest extends StatelessWidget {
         color: Colors.white,
         textColor: color,
         child: Text(text, style: TextStyle(fontSize: 12)),
+      ),
+    );
+  }
+}
+
+class CampusButtonBorder extends StatelessWidget {
+  final String text;
+  final Function press;
+  final Color color;
+  final double height, width;
+  const CampusButtonBorder(
+      {Key key, this.text, this.press, this.color, this.height, this.width})
+      : super(key: key);
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(10),
+      height: height,
+      width: width,
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0.0),
+            side: BorderSide(color: color)),
+        onPressed: () {},
+        padding: EdgeInsets.all(10.0),
+        color: Colors.white,
+        textColor: color,
+        child: Text(text, style: TextStyle(fontSize: 15)),
       ),
     );
   }

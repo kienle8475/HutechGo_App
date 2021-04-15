@@ -53,25 +53,21 @@ class Main extends StatelessWidget {
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            SizedBox(height: mQSize.height * 0.10),
+            SizedBox(height: mQSize.height * 0.1),
             Image.asset(
               "assets/images/gotouni.png",
               height: mQSize.width * 0.55,
             ),
             SizedBox(height: mQSize.height * 0.02),
-            // Text(
-            //   "hutech go",
-            //   style: TextStyle(
-            //       fontFamily: "Tumbly",
-            //       fontSize: 40,
-            //       fontWeight: FontWeight.bold,
-            //       color: Colors.blue),
-            // ),
-            SizedBox(height: mQSize.height * 0.2),
+            Image.asset(
+              "assets/images/logos/hutechgo.png",
+              height: mQSize.width * 0.18,
+            ),
+            SizedBox(height: mQSize.height * 0.08),
             RoundedButtonFill(
               text: "ĐĂNG NHẬP",
               color: Constants.primary,
-              height: mQSize.height * 0.05,
+              height: 50,
               width: mQSize.width * 0.8,
               press: () {
                 Navigator.pushNamed(context, Login.routeName);
@@ -80,7 +76,7 @@ class Main extends StatelessWidget {
             RoundedButtonBorder(
               text: "ĐĂNG KÝ",
               color: Constants.primary,
-              height: mQSize.height * 0.05,
+              height: 50,
               width: mQSize.width * 0.8,
               press: () {},
             ),
