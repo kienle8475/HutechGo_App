@@ -26,7 +26,7 @@ class CurrentLocation {
   LocationData getLocation() {
     LocationData locationData;
     location.onLocationChanged.listen((LocationData currentLocation) async {
-      locationData = await location.getLocation();
+      //locationData = await location.getLocation();
       // log('locationData: $locationData');
     });
     return locationData;

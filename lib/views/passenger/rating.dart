@@ -19,6 +19,7 @@ class _Rating extends State<Rating> {
   @override
   Widget build(BuildContext context) {
     final mQSize = MediaQuery.of(context).size;
+    print(mQSize.height);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBarWBack(),
@@ -93,12 +94,33 @@ class _Rating extends State<Rating> {
                             SizedBox(
                               height: mQSize.height * 0.01,
                             ),
+                            Container(
+                              padding: EdgeInsets.only(right: 15, left: 15),
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  hintText: "Chia sẻ cảm nhận của bạn nhé...",
+                                  hintStyle: TextStyle(color: Constants.light),
+                                  filled: true,
+                                  fillColor: Colors.grey[100],
+                                  enabledBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          color: Colors.transparent)),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(4)),
+                                      borderSide: BorderSide(
+                                          color: Constants.secondary)),
+                                ),
+                              ),
+                            ),
                             Row(
                               children: [
                                 Expanded(
                                   child: CustomCheckBoxGroup(
-                                    padding: mQSize.height * 0.01,
-                                    elevation: 1,
+                                    padding: mQSize.height * 0.017,
+                                    elevation: 0,
                                     width: 160,
                                     height: 50,
                                     horizontal: true,
@@ -106,11 +128,11 @@ class _Rating extends State<Rating> {
                                     defaultSelected: null,
                                     selectedColor: Constants.secondary,
                                     unSelectedColor: Colors.white,
-                                    selectedBorderColor: Constants.secondary,
                                     enableShape: true,
+                                    space: 0.2,
                                     customShape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                          color: Constants.secondary),
+                                      side:
+                                          BorderSide(color: Colors.transparent),
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(4),
                                       ),
@@ -134,8 +156,8 @@ class _Rating extends State<Rating> {
                                 ),
                                 Expanded(
                                   child: CustomCheckBoxGroup(
-                                    padding: mQSize.height * 0.01,
-                                    elevation: 1,
+                                    padding: mQSize.height * 0.017,
+                                    elevation: 0,
                                     width: 160,
                                     height: 50,
                                     horizontal: true,
@@ -143,11 +165,11 @@ class _Rating extends State<Rating> {
                                     defaultSelected: null,
                                     selectedColor: Constants.secondary,
                                     unSelectedColor: Colors.white,
-                                    selectedBorderColor: Constants.secondary,
                                     enableShape: true,
+                                    space: 0.2,
                                     customShape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                          color: Constants.secondary),
+                                      side:
+                                          BorderSide(color: Colors.transparent),
                                       borderRadius: BorderRadius.all(
                                         Radius.circular(4),
                                       ),
@@ -171,27 +193,6 @@ class _Rating extends State<Rating> {
                                 ),
                               ],
                             ),
-                            Container(
-                              padding: EdgeInsets.only(right: 15, left: 15),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText: "Chia sẻ cảm nhận của bạn nhé...",
-                                  hintStyle: TextStyle(color: Constants.light),
-                                  filled: true,
-                                  fillColor: Colors.grey[50],
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(4)),
-                                      borderSide: BorderSide(
-                                          color: Constants.secondary)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(4)),
-                                      borderSide: BorderSide(
-                                          color: Constants.secondary)),
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                       ),
@@ -214,13 +215,13 @@ class _Rating extends State<Rating> {
                   ),
                   child: Card(
                     child: SizedBox(
-                      height: mQSize.height * 0.15,
+                      height: mQSize.height * 0.119,
                       width: mQSize.width * 0.8,
                       child: Container(
                         margin: new EdgeInsets.only(
                             left: mQSize.height * 0.02,
                             right: mQSize.height * 0.02,
-                            top: mQSize.height * 0.03),
+                            top: mQSize.height * 0.02),
                         child: Column(
                           children: [
                             Container(
@@ -261,7 +262,7 @@ class _Rating extends State<Rating> {
                                             child: Icon(
                                               Icons.horizontal_rule,
                                               color: Colors.grey,
-                                              size: 24.0,
+                                              size: 23.0,
                                             ),
                                           )
                                         ],
@@ -274,7 +275,7 @@ class _Rating extends State<Rating> {
                                           Icon(
                                             Icons.adjust,
                                             color: Constants.danger,
-                                            size: 24.0,
+                                            size: 23.0,
                                           ),
                                           Padding(
                                             padding: EdgeInsets.only(left: 20),

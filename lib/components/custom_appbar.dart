@@ -11,6 +11,8 @@ class AppBarWBack extends StatelessWidget implements PreferredSizeWidget {
         actions: <Widget>[],
         leading: new Container(
           child: new IconButton(
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
             icon: new Icon(Icons.arrow_back),
             color: Constants.primary,
             onPressed: () => Navigator.of(context).pop(null),

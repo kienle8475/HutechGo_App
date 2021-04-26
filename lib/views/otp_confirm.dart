@@ -45,6 +45,7 @@ class _OtpConfirm extends State<OtpConfirm> {
     final mQSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBarWBack(),
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SafeArea(
         child: ListView(
@@ -91,7 +92,7 @@ class _OtpConfirm extends State<OtpConfirm> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Mã OTP sẽ hết hạn và được cấp lại sau: $timerText",
+                                      "Mã OTP sẽ được gửi lại sau: $timerText",
                                       style: TextStyle(
                                         color: Colors.black87,
                                         fontSize: 13,
@@ -120,7 +121,7 @@ class _OtpConfirm extends State<OtpConfirm> {
                     height: mQSize.height * 0.01,
                   ),
                   Container(
-                    height: mQSize.height * 0.055,
+                    height: mQSize.height * 0.065,
                     child: Card(
                       margin: EdgeInsets.only(left: 24, right: 24),
                       elevation: 6.0,

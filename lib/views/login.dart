@@ -16,6 +16,7 @@ class _Login extends State<Login> {
     return Scaffold(
       appBar: AppBarWBack(),
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: ListView(
           children: <Widget>[
@@ -61,7 +62,7 @@ class _Login extends State<Login> {
                                         "Sử dụng số điện thoại bạn đã đăng ký để đăng nhập",
                                         style: TextStyle(
                                           color: Colors.black87,
-                                          fontSize: 13,
+                                          fontSize: 12,
                                         ),
                                       ),
                                     ],
@@ -74,7 +75,7 @@ class _Login extends State<Login> {
                     height: mQSize.height * 0.01,
                   ),
                   Container(
-                    height: mQSize.height * 0.055,
+                    height: mQSize.height * 0.065,
                     child: Card(
                       margin: EdgeInsets.only(left: 20, right: 20),
                       elevation: 6.0,
@@ -83,7 +84,7 @@ class _Login extends State<Login> {
                       child: Center(
                         child: Row(
                           children: <Widget>[
-                            Expanded(
+                            Flexible(
                               flex: 1,
                               child: CountryCodePicker(
                                 onChanged: (e) {},
@@ -98,26 +99,27 @@ class _Login extends State<Login> {
                                 alignLeft: false,
                               ),
                             ),
-                            Expanded(
-                                flex: 2,
-                                child: TextField(
-                                  maxLength: 10,
-                                  autofocus: true,
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "Nhập số điện thoại",
-                                    hintStyle: TextStyle(
-                                      color: Colors.black87,
-                                      fontSize: 14,
-                                    ),
-                                    counterText: "",
+                            Flexible(
+                              flex: 2,
+                              child: TextField(
+                                maxLength: 10,
+                                autofocus: true,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "Nhập số điện thoại",
+                                  hintStyle: TextStyle(
+                                    color: Colors.black87,
+                                    fontSize: 14,
                                   ),
-                                  onSubmitted: (e) {
-                                    Navigator.pushNamed(
-                                        context, OtpConfirm.routeName);
-                                  },
-                                  keyboardType: TextInputType.number,
-                                )),
+                                  counterText: "",
+                                ),
+                                onSubmitted: (e) {
+                                  Navigator.pushNamed(
+                                      context, OtpConfirm.routeName);
+                                },
+                                keyboardType: TextInputType.number,
+                              ),
+                            )
                           ],
                         ),
                       ),

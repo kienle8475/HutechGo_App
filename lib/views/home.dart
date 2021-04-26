@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:hutech_go/components/custom_button.dart';
 import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/passenger/booking.dart';
-import 'package:hutech_go/views/passenger/rating.dart';
-
 import 'dart:math' as math;
 
 class Home extends StatefulWidget {
@@ -27,7 +25,7 @@ class _Home extends State<Home> {
                   padding: new EdgeInsets.only(top: mQSize.height * 0.15),
                   child: Card(
                     child: SizedBox(
-                      height: mQSize.height * 0.2,
+                      height: mQSize.height * 0.25,
                       width: mQSize.width * 0.8,
                       child: Column(
                         children: [

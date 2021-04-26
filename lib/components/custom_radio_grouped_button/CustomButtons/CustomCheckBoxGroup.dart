@@ -3,30 +3,31 @@ import '../custom_radio_grouped_button.dart';
 
 // ignore: must_be_immutable
 class CustomCheckBoxGroup<T> extends StatefulWidget {
-  CustomCheckBoxGroup({
-    Key key,
-    this.horizontal = false,
-    this.buttonValuesList,
-    this.buttonTextStyle = const ButtonTextStyle(),
-    this.height = 35,
-    this.padding = 3,
-    this.spacing = 0.0,
-    this.autoWidth = false,
-    this.width = 100,
-    this.enableShape = false,
-    this.elevation = 0,
-    this.buttonLables,
-    this.checkBoxButtonValues,
-    this.selectedColor,
-    this.selectedBorderColor,
-    this.wrapAlignment = WrapAlignment.start,
-    this.defaultSelected,
-    this.unSelectedColor,
-    this.unSelectedBorderColor,
-    this.customShape,
-    this.absoluteZeroSpacing = false,
-    this.enableButtonWrap = false,
-  })  : assert(buttonLables.length == buttonValuesList.length,
+  CustomCheckBoxGroup(
+      {Key key,
+      this.horizontal = false,
+      this.buttonValuesList,
+      this.buttonTextStyle = const ButtonTextStyle(),
+      this.height = 35,
+      this.padding = 3,
+      this.spacing = 0.0,
+      this.autoWidth = false,
+      this.width = 100,
+      this.enableShape = false,
+      this.elevation = 0,
+      this.buttonLables,
+      this.checkBoxButtonValues,
+      this.selectedColor,
+      this.selectedBorderColor,
+      this.wrapAlignment = WrapAlignment.start,
+      this.defaultSelected,
+      this.unSelectedColor,
+      this.unSelectedBorderColor,
+      this.customShape,
+      this.absoluteZeroSpacing = false,
+      this.enableButtonWrap = false,
+      this.space})
+      : assert(buttonLables.length == buttonValuesList.length,
             "Button values list and button lables list should have same number of eliments "),
         assert(unSelectedColor != null, "Unselected color cannot be null"),
         assert(buttonValuesList.toSet().length == buttonValuesList.length,
@@ -95,6 +96,8 @@ class CustomCheckBoxGroup<T> extends StatefulWidget {
   /// This will enable button wrap (will work only if orientation is vertical)
   final bool enableButtonWrap;
 
+  final double space;
+
   _CustomCheckBoxGroupState createState() => _CustomCheckBoxGroupState();
 }
 
@@ -120,61 +123,74 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
     return widget.buttonValuesList.map((e) {
       int index = widget.buttonValuesList.indexOf(e);
       return Padding(
-        padding: EdgeInsets.all(widget.padding),
-        child: Card(
-          margin: EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
-          color: selectedLables.contains(e)
-              ? widget.selectedColor
-              : widget.unSelectedColor,
-          elevation: widget.elevation,
-          shape: widget.enableShape
-              ? widget.customShape == null
-                  ? RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(50)),
-                    )
-                  : widget.customShape
-              : null,
+          padding: EdgeInsets.all(widget.padding),
           child: Container(
-            height: widget.height,
-            child: MaterialButton(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 4,
+                  spreadRadius: 0.5,
+                  color: Colors.grey[200],
+                ),
+              ],
+            ),
+            child: Card(
+              margin:
+                  EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : widget.space),
+              color: selectedLables.contains(e)
+                  ? widget.selectedColor
+                  : widget.unSelectedColor,
+              elevation: widget.elevation,
               shape: widget.enableShape
                   ? widget.customShape == null
-                      ? OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: borderColor(e), width: 1),
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ? RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(50)),
                         )
                       : widget.customShape
-                  : OutlineInputBorder(
-                      borderSide: BorderSide(color: borderColor(e), width: 1),
-                      borderRadius: BorderRadius.zero,
+                  : null,
+              child: Container(
+                height: widget.height,
+                child: MaterialButton(
+                  shape: widget.enableShape
+                      ? widget.customShape == null
+                          ? OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: borderColor(e), width: 1),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                            )
+                          : widget.customShape
+                      : OutlineInputBorder(
+                          borderSide:
+                              BorderSide(color: borderColor(e), width: 1),
+                          borderRadius: BorderRadius.zero,
+                        ),
+                  onPressed: () {
+                    if (selectedLables.contains(e)) {
+                      selectedLables.remove(e);
+                    } else {
+                      selectedLables.add(e);
+                    }
+                    setState(() {});
+                    widget.checkBoxButtonValues(selectedLables);
+                  },
+                  child: Center(
+                    child: Text(
+                      widget.buttonLables[index],
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: widget.buttonTextStyle.textStyle.copyWith(
+                        color: selectedLables.contains(e)
+                            ? widget.buttonTextStyle.selectedColor
+                            : widget.buttonTextStyle.unSelectedColor,
+                      ),
                     ),
-              onPressed: () {
-                if (selectedLables.contains(e)) {
-                  selectedLables.remove(e);
-                } else {
-                  selectedLables.add(e);
-                }
-                setState(() {});
-                widget.checkBoxButtonValues(selectedLables);
-              },
-              child: Center(
-                child: Text(
-                  widget.buttonLables[index],
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: widget.buttonTextStyle.textStyle.copyWith(
-                    color: selectedLables.contains(e)
-                        ? widget.buttonTextStyle.selectedColor
-                        : widget.buttonTextStyle.unSelectedColor,
                   ),
                 ),
               ),
             ),
-          ),
-        ),
-      );
+          ));
     }).toList();
   }
 
@@ -182,7 +198,7 @@ class _CustomCheckBoxGroupState extends State<CustomCheckBoxGroup> {
     return widget.buttonValuesList.map((e) {
       int index = widget.buttonValuesList.indexOf(e);
       return Card(
-        margin: EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : 4),
+        margin: EdgeInsets.all(widget.absoluteZeroSpacing ? 0 : widget.space),
         color: selectedLables.contains(e)
             ? widget.selectedColor
             : widget.unSelectedColor,
