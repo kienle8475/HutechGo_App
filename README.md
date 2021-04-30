@@ -4,7 +4,7 @@
 Views chung
 - Welcome - Đăng ký hoặc đăng nhập
 - Login - Nhập số điện thoại
-- OTPConfỉm - Nhập mã OTP xác thực
+- OTPConfirm - Nhập mã OTP xác thực
 - Home - Profile
 
 Passenger : Views cho hành khách
