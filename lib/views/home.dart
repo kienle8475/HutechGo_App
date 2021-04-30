@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hutech_go/components/custom_button.dart';
 import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/passenger/booking.dart';
 import 'dart:math' as math;
+
+import 'login.dart';
 
 class Home extends StatefulWidget {
   static final routeName = "home";
@@ -42,7 +45,7 @@ class _Home extends State<Home> {
                           Padding(
                             padding: EdgeInsets.only(top: 10),
                             child: Text(
-                              "1711060326 - 17DTHJA3",
+                              FirebaseAuth.instance.currentUser.uid,
                               style: TextStyle(
                                 color: Constants.primary,
                                 fontSize: 18,
@@ -57,16 +60,32 @@ class _Home extends State<Home> {
                 Stack(
                   alignment: AlignmentDirectional.bottomCenter,
                   children: [
-                    Container(
-                      margin: new EdgeInsets.symmetric(vertical: 20.0),
-                      child: RoundedButtonFill(
-                          color: Constants.primary,
-                          text: "Tìm xe",
-                          height: 50,
-                          width: mQSize.width * 0.8,
-                          press: () {
-                            Navigator.pushNamed(context, Booking.routeName);
-                          }),
+                    Column(
+                      children: [
+                        Container(
+                          margin: new EdgeInsets.symmetric(vertical: 10.0),
+                          child: RoundedButtonFill(
+                              color: Constants.primary,
+                              text: "Tìm xe",
+                              height: 50,
+                              width: mQSize.width * 0.8,
+                              press: () {
+                                Navigator.pushNamed(context, Booking.routeName);
+                              }),
+                        ),
+                        Container(
+                          child: RoundedButtonFill(
+                              color: Constants.danger,
+                              text: "Đăng xuất",
+                              height: 50,
+                              width: mQSize.width * 0.8,
+                              press: () {
+                                Navigator.pushNamedAndRemoveUntil(
+                                    context, Login.routeName, (route) => false);
+                                FirebaseAuth.instance.signOut();
+                              }),
+                        )
+                      ],
                     )
                   ],
                 )
@@ -92,8 +111,8 @@ class _Home extends State<Home> {
                         child: CircleAvatar(
                           radius: 75,
                           backgroundColor: Colors.white,
-                          backgroundImage:
-                              AssetImage("assets/images/profile_thu.jpg"),
+                          backgroundImage: NetworkImage(
+                              "http://103.154.100.159/media/images/students/profiles/1711060326/fc5fbb4b-1399-4051-9e4b-4c30dd2616c0.jpg"),
                         ))),
               ),
             ),

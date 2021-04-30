@@ -1,10 +1,6 @@
 # hutech_go
 
-A new Flutter project.
-
-## Getting Started
-
-## Views đã hoàn thành:
+## Views đã hoàn thành
 Views chung
 - Welcome - lựa chọn đăng ký hoặc đăng nhập
 - Login - nhập số điện thoại
@@ -12,8 +8,8 @@ Views chung
 - Home - Profile
 
 Passenger : Views cho hành khách
-- booking -  đặt xe
-- rating - đánh giá
+- Booking -  đặt xe
+- Rating - đánh giá
 
 
 Drỉver: views cho người lái

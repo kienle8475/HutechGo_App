@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:hutech_go/components/custom_appbar.dart';
@@ -10,10 +12,62 @@ class Login extends StatefulWidget {
 }
 
 class _Login extends State<Login> {
+  bool _isLoading = false;
+  String _countrycode;
+  TextEditingController _controllerPhoneNumber = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     final mQSize = MediaQuery.of(context).size;
+    verifyPhoneNumber() async {
+      await FirebaseAuth.instance.verifyPhoneNumber(
+          phoneNumber: _countrycode + _controllerPhoneNumber.text,
+          verificationCompleted: (PhoneAuthCredential credential) async {
+            await FirebaseAuth.instance
+                .signInWithCredential(credential)
+                .then((value) async {});
+          },
+          verificationFailed: (FirebaseAuthException e) {
+            print(e);
+          },
+          codeSent: (String verificationID, int resendToken) {
+            setState(() {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => OtpConfirm(verificationID,
+                      _countrycode + _controllerPhoneNumber.text)));
+            });
+          },
+          codeAutoRetrievalTimeout: (String verificationID) {
+            setState(() {});
+          });
+    }
+
+    login() async {
+      var isValidUser = false;
+      await FirebaseFirestore.instance
+          .collection('users')
+          .where('phoneNumber',
+              isEqualTo: _countrycode + _controllerPhoneNumber.text)
+          .get()
+          .then((value) {
+        if (value.docs.length > 0) {
+          isValidUser = true;
+        }
+      });
+      if (isValidUser) {
+        await verifyPhoneNumber();
+        _isLoading = false;
+      } else {
+        FocusScope.of(context).unfocus();
+        _scaffoldkey.currentState.showSnackBar(
+            SnackBar(content: Text('Số điện thoại chưa được đăng ký')));
+        _isLoading = false;
+      }
+    }
+
     return Scaffold(
+      key: _scaffoldkey,
       appBar: AppBarWBack(),
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
@@ -87,7 +141,12 @@ class _Login extends State<Login> {
                             Flexible(
                               flex: 1,
                               child: CountryCodePicker(
-                                onChanged: (e) {},
+                                onChanged: (e) {
+                                  _countrycode = e.dialCode;
+                                },
+                                onInit: (e) {
+                                  _countrycode = e.dialCode;
+                                },
                                 // Initial selection and favorite can be one of code ('IT') OR dial_code('+39')
                                 initialSelection: 'VN',
                                 favorite: ['VN'],
@@ -102,7 +161,8 @@ class _Login extends State<Login> {
                             Flexible(
                               flex: 2,
                               child: TextField(
-                                maxLength: 10,
+                                controller: _controllerPhoneNumber,
+                                maxLength: 9,
                                 autofocus: true,
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
@@ -114,8 +174,8 @@ class _Login extends State<Login> {
                                   counterText: "",
                                 ),
                                 onSubmitted: (e) {
-                                  Navigator.pushNamed(
-                                      context, OtpConfirm.routeName);
+                                  login();
+                                  _isLoading = true;
                                 },
                                 keyboardType: TextInputType.number,
                               ),
@@ -140,9 +200,14 @@ class _Login extends State<Login> {
         child: FittedBox(
           child: FloatingActionButton(
             onPressed: () {
-              Navigator.pushNamed(context, OtpConfirm.routeName);
+              login();
             },
-            child: Icon(Icons.arrow_forward),
+            // child: ,
+            child: (_isLoading)
+                ? CircularProgressIndicator(
+                    color: Colors.white,
+                  )
+                : Icon(Icons.arrow_forward),
           ),
         ),
       ),

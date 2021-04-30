@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hutech_go/components/custom_appbar.dart';
 import 'package:hutech_go/components/custom_button.dart';
-import 'package:hutech_go/components/custom_radio_grouped_button/CustomButtons/ButtonTextStyle.dart';
-import 'package:hutech_go/components/custom_radio_grouped_button/CustomButtons/CustomCheckBoxGroup.dart';
+
 import 'package:hutech_go/utils/constants.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'dart:math' as math;
-
-import 'booking.dart';
 
 class Rating extends StatefulWidget {
   static final routeName = "Rating";
@@ -115,84 +112,84 @@ class _Rating extends State<Rating> {
                                 ),
                               ),
                             ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: CustomCheckBoxGroup(
-                                    padding: mQSize.height * 0.017,
-                                    elevation: 0,
-                                    width: 160,
-                                    height: 50,
-                                    horizontal: true,
-                                    absoluteZeroSpacing: false,
-                                    defaultSelected: null,
-                                    selectedColor: Constants.secondary,
-                                    unSelectedColor: Colors.white,
-                                    enableShape: true,
-                                    space: 0.2,
-                                    customShape: RoundedRectangleBorder(
-                                      side:
-                                          BorderSide(color: Colors.transparent),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(4),
-                                      ),
-                                    ),
-                                    buttonLables: [
-                                      'Thân thiện ',
-                                      'Chuyên nghiệp',
-                                    ],
-                                    buttonValuesList: [
-                                      '1',
-                                      '2',
-                                    ],
-                                    buttonTextStyle: ButtonTextStyle(
-                                        selectedColor: Colors.white,
-                                        unSelectedColor: Constants.secondary,
-                                        textStyle: TextStyle(fontSize: 16)),
-                                    checkBoxButtonValues: (value) {
-                                      print(value);
-                                    },
-                                  ),
-                                ),
-                                Expanded(
-                                  child: CustomCheckBoxGroup(
-                                    padding: mQSize.height * 0.017,
-                                    elevation: 0,
-                                    width: 160,
-                                    height: 50,
-                                    horizontal: true,
-                                    absoluteZeroSpacing: false,
-                                    defaultSelected: null,
-                                    selectedColor: Constants.secondary,
-                                    unSelectedColor: Colors.white,
-                                    enableShape: true,
-                                    space: 0.2,
-                                    customShape: RoundedRectangleBorder(
-                                      side:
-                                          BorderSide(color: Colors.transparent),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(4),
-                                      ),
-                                    ),
-                                    buttonLables: [
-                                      'Tận tình ',
-                                      'Đúng giờ ',
-                                    ],
-                                    buttonValuesList: [
-                                      '3',
-                                      '4',
-                                    ],
-                                    buttonTextStyle: ButtonTextStyle(
-                                        selectedColor: Colors.white,
-                                        unSelectedColor: Constants.secondary,
-                                        textStyle: TextStyle(fontSize: 16)),
-                                    checkBoxButtonValues: (value) {
-                                      print(value);
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
+                            // Row(
+                            //   children: [
+                            //     Expanded(
+                            //       child: CustomCheckBoxGroup(
+                            //         padding: mQSize.height * 0.017,
+                            //         elevation: 0,
+                            //         width: 160,
+                            //         height: 50,
+                            //         horizontal: true,
+                            //         absoluteZeroSpacing: false,
+                            //         defaultSelected: null,
+                            //         selectedColor: Constants.secondary,
+                            //         unSelectedColor: Colors.white,
+                            //         enableShape: true,
+                            //         space: 0.2,
+                            //         customShape: RoundedRectangleBorder(
+                            //           side:
+                            //               BorderSide(color: Colors.transparent),
+                            //           borderRadius: BorderRadius.all(
+                            //             Radius.circular(4),
+                            //           ),
+                            //         ),
+                            //         buttonLables: [
+                            //           'Thân thiện ',
+                            //           'Chuyên nghiệp',
+                            //         ],
+                            //         buttonValuesList: [
+                            //           '1',
+                            //           '2',
+                            //         ],
+                            //         buttonTextStyle: ButtonTextStyle(
+                            //             selectedColor: Colors.white,
+                            //             unSelectedColor: Constants.secondary,
+                            //             textStyle: TextStyle(fontSize: 16)),
+                            //         checkBoxButtonValues: (value) {
+                            //           print(value);
+                            //         },
+                            //       ),
+                            //     ),
+                            //     Expanded(
+                            //       child: CustomCheckBoxGroup(
+                            //         padding: mQSize.height * 0.017,
+                            //         elevation: 0,
+                            //         width: 160,
+                            //         height: 50,
+                            //         horizontal: true,
+                            //         absoluteZeroSpacing: false,
+                            //         defaultSelected: null,
+                            //         selectedColor: Constants.secondary,
+                            //         unSelectedColor: Colors.white,
+                            //         enableShape: true,
+                            //         space: 0.2,
+                            //         customShape: RoundedRectangleBorder(
+                            //           side:
+                            //               BorderSide(color: Colors.transparent),
+                            //           borderRadius: BorderRadius.all(
+                            //             Radius.circular(4),
+                            //           ),
+                            //         ),
+                            //         buttonLables: [
+                            //           'Tận tình ',
+                            //           'Đúng giờ ',
+                            //         ],
+                            //         buttonValuesList: [
+                            //           '3',
+                            //           '4',
+                            //         ],
+                            //         buttonTextStyle: ButtonTextStyle(
+                            //             selectedColor: Colors.white,
+                            //             unSelectedColor: Constants.secondary,
+                            //             textStyle: TextStyle(fontSize: 16)),
+                            //         checkBoxButtonValues: (value) {
+                            //           print(value);
+                            //         },
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ),
                           ],
                         ),
                       ),

@@ -29,7 +29,10 @@ dependencies:
   google_maps_flutter: ^2.0.3
   flutter_rating_bar: ^4.0.0
   location: ^3.0.0
-  
+  firebase_core: "^0.7.0"
+  firebase_auth: "0.20.1"
+  cloud_firestore: "0.16.0"
+
 
 
 

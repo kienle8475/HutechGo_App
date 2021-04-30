@@ -6,16 +6,22 @@ import 'package:hutech_go/components/custom_button.dart';
 import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/home.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class OtpConfirm extends StatefulWidget {
-  static final routeName = "OtpConfirm";
+  final String verificationCode;
+  final String phoneNumber;
+  OtpConfirm(this.verificationCode, this.phoneNumber);
+
   @override
   _OtpConfirm createState() => _OtpConfirm();
 }
 
 class _OtpConfirm extends State<OtpConfirm> {
+  final TextEditingController _controllerPinCode = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   final interval = const Duration(seconds: 1);
-  final int timerMaxSeconds = 10;
+  final int timerMaxSeconds = 60;
   int currentSecond = 0;
   bool btnVisible = false;
   String get timerText =>
@@ -36,14 +42,15 @@ class _OtpConfirm extends State<OtpConfirm> {
 
   @override
   void initState() {
-    startTimeOut();
     super.initState();
+    startTimeOut();
   }
 
   @override
   Widget build(BuildContext context) {
     final mQSize = MediaQuery.of(context).size;
     return Scaffold(
+      key: _scaffoldkey,
       appBar: AppBarWBack(),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -74,10 +81,10 @@ class _OtpConfirm extends State<OtpConfirm> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Nhập mã OTP được gửi đến",
+                            "Nhập mã OTP được gửi đến ${widget.phoneNumber}",
                             style: TextStyle(
                               color: Colors.black87,
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -92,7 +99,7 @@ class _OtpConfirm extends State<OtpConfirm> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "Mã OTP sẽ được gửi lại sau: $timerText",
+                                      "Mã OTP sẽ được cấp lại sau: $timerText",
                                       style: TextStyle(
                                         color: Colors.black87,
                                         fontSize: 13,
@@ -136,10 +143,11 @@ class _OtpConfirm extends State<OtpConfirm> {
                               Expanded(
                                   flex: 3,
                                   child: PinCodeTextField(
+                                    controller: _controllerPinCode,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     textInputType: TextInputType.number,
-                                    length: 4,
+                                    length: 6,
                                     obsecureText: false,
                                     inactiveColor: Colors.black,
                                     animationType: AnimationType.fade,
@@ -150,10 +158,24 @@ class _OtpConfirm extends State<OtpConfirm> {
                                     fieldHeight: 30,
                                     fieldWidth: 25,
                                     autoFocus: true,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        // currentText = value;
-                                      });
+                                    onChanged: (String value) {},
+                                    onCompleted: (value) async {
+                                      try {
+                                        await FirebaseAuth.instance
+                                            .signInWithCredential(
+                                                PhoneAuthProvider.credential(
+                                                    verificationId:
+                                                        widget.verificationCode,
+                                                    smsCode: value))
+                                            .then((value) async {});
+                                      } catch (e) {
+                                        print(e);
+                                        FocusScope.of(context).unfocus();
+                                        _scaffoldkey.currentState.showSnackBar(
+                                            SnackBar(
+                                                content: Text(
+                                                    'Mã OTP không hợp lệ')));
+                                      }
                                     },
                                   )),
                             ],

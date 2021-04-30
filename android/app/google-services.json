@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "608474165833",
+    "project_id": "hutech-peaga-xyz",
+    "storage_bucket": "hutech-peaga-xyz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608474165833:android:f7a1305045ae8b185c8598",
+        "android_client_info": {
+          "package_name": "com.example.hutech_go"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "608474165833-3mdc6cvvf2ek3l6ont7aq4vuivcs7knr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hutech_go",
+            "certificate_hash": "56f9beb0b66046cbe28e0b21718819486f69d73e"
+          }
+        },
+        {
+          "client_id": "608474165833-midi7q7oe3aqg42jcaaq1eudkng5gvv3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ2IQw5-LcCm-eAYKHDa_Yrf_o7__ESWk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "608474165833-midi7q7oe3aqg42jcaaq1eudkng5gvv3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
