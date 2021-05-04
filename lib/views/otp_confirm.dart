@@ -167,7 +167,12 @@ class _OtpConfirm extends State<OtpConfirm> {
                                                     verificationId:
                                                         widget.verificationCode,
                                                     smsCode: value))
-                                            .then((value) async {});
+                                            .then((value) async {
+                                          Navigator.pushNamedAndRemoveUntil(
+                                              context,
+                                              Home.routeName,
+                                              (route) => false);
+                                        });
                                       } catch (e) {
                                         print(e);
                                         FocusScope.of(context).unfocus();
@@ -198,10 +203,7 @@ class _OtpConfirm extends State<OtpConfirm> {
         width: 50,
         child: FittedBox(
           child: FloatingActionButton(
-            onPressed: () {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, Home.routeName, (route) => false);
-            },
+            onPressed: () {},
             child: Icon(Icons.arrow_forward),
           ),
         ),

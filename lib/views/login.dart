@@ -46,8 +46,8 @@ class _Login extends State<Login> {
     login() async {
       var isValidUser = false;
       await FirebaseFirestore.instance
-          .collection('users')
-          .where('phoneNumber',
+          .collection('students')
+          .where('phone_number',
               isEqualTo: _countrycode + _controllerPhoneNumber.text)
           .get()
           .then((value) {

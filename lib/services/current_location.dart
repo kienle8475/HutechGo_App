@@ -1,5 +1,4 @@
 import 'package:location/location.dart';
-import 'dart:developer';
 
 class CurrentLocation {
   Location location = new Location();

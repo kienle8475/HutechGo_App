@@ -32,6 +32,9 @@ dependencies:
   firebase_core: "^0.7.0"
   firebase_auth: "0.20.1"
   cloud_firestore: "0.16.0"
+  intl: ^0.16.1
+  http : ^0.12.1
+  
 
 
 
@@ -60,6 +63,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    - assets/icons/
     - assets/images/
     - assets/images/logos/
     - assets/fonts/

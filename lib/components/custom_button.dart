@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hutech_go/views/welcome.dart';
 
 class RoundedButtonFill extends StatelessWidget {
   final String text;
@@ -140,6 +141,66 @@ class RequestRideButton extends StatelessWidget {
         textColor: Colors.white,
         child: Row(
           children: [Text(text, style: TextStyle(fontSize: 15))],
+        ),
+      ),
+    );
+  }
+}
+
+final Shader linearGradient = LinearGradient(
+  colors: <Color>[Colors.blue, Colors.purple],
+).createShader(Rect.fromLTWH(0.0, 0.0, 350.0, 70.0));
+
+class HomeMenuButton extends StatelessWidget {
+  final String text;
+  final Function press;
+  final Color color;
+  final double height, width;
+  final Image icon;
+  const HomeMenuButton({
+    Key key,
+    this.text,
+    this.icon,
+    this.press,
+    this.color,
+    this.height,
+    this.width,
+  }) : super(key: key);
+
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(10),
+      height: height,
+      width: width,
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4.0),
+          // side: BorderSide(color: Colors.purple)
+        ),
+        onPressed: press,
+        padding: EdgeInsets.all(10.0),
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Container(
+              height: 50,
+              width: 50,
+              child: icon,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(text,
+                    style: TextStyle(
+                        fontSize: 15,
+                        foreground: Paint()..shader = linearGradient))
+              ],
+            )
+          ],
         ),
       ),
     );

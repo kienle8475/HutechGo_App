@@ -1,17 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hutech_go/components/custom_radio_grouped_button/CustomButtons/ButtonTextStyle.dart';
 import 'package:hutech_go/components/custom_radio_grouped_button/CustomButtons/CustomRadioButton2.dart';
+import 'package:hutech_go/models/campus.dart';
 import 'package:hutech_go/services/current_location.dart';
 import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/home.dart';
-import 'package:hutech_go/views/passenger/rating.dart';
 import 'package:location/location.dart';
 
 import 'dart:math' as math;
 
 class Booking extends StatefulWidget {
   static final routeName = "Booking";
+  Campus campus;
+  Booking(this.campus);
   @override
   _Booking createState() => _Booking();
 }
@@ -21,6 +24,7 @@ class _Booking extends State<Booking> {
   bool multiple = true;
   GoogleMapController mapController;
   LocationData currLatLng = CurrentLocation().getLocation();
+
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
@@ -32,15 +36,11 @@ class _Booking extends State<Booking> {
     currLatLng = CurrentLocation().getLocation();
   }
 
-  Future<bool> getData() async {
-    await Future<dynamic>.delayed(const Duration(milliseconds: 0));
-    return true;
-  }
-
   @override
   Widget build(BuildContext context) {
     final mQSize = MediaQuery.of(context).size;
     final LatLng _center = LatLng(10.8409001, 106.7736572);
+
     return Scaffold(
         resizeToAvoidBottomInset: false,
         body: Column(
@@ -127,14 +127,16 @@ class _Booking extends State<Booking> {
                           defaultSelected: null,
                           selectedColor: Theme.of(context).accentColor,
                           unSelectedColor: Theme.of(context).canvasColor,
-                          buttonLables: ['A ', 'B ', 'D ', 'E ', 'U ', 'R '],
-                          buttonValuesList: ['A', 'B', 'D', 'E', 'U', 'R'],
+                          buttonLables: [widget.campus.campusID],
+                          buttonValuesList: [
+                            'E',
+                          ],
                           buttonTextStyle: ButtonTextStyle(
                               selectedColor: Colors.white,
                               unSelectedColor: Constants.primary,
                               textStyle: TextStyle(fontSize: 14)),
                           checkBoxButtonValues: (value) {
-                            Navigator.pushNamed(context, Rating.routeName);
+                            // Navigator.pushNamed(context, Rating.routeName);
                           },
                         ),
                         SizedBox(
@@ -163,7 +165,9 @@ class _Booking extends State<Booking> {
                                                   EdgeInsets.only(left: 20),
                                               child: Container(
                                                 child: Text(
-                                                  "Hutech A Campus - 475A Dien Bien Phu",
+                                                  // "Hutech A Campus - 475A Dien Bien Phu",
+                                                  // campus.campusName.toString(),
+                                                  widget.campus.campusName,
                                                   style: TextStyle(
                                                       color: Colors.grey[700],
                                                       fontSize: 14),

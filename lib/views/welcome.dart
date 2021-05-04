@@ -4,6 +4,7 @@ import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/login.dart';
 
 class WelcomeScreen extends StatelessWidget {
+  static final routeName = "welcome";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
