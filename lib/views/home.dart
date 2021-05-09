@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hutech_go/components/custom_button.dart';
-import 'package:hutech_go/models/campus.dart';
 import 'package:hutech_go/models/student.dart';
 import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/passenger/booking.dart';
@@ -20,11 +19,9 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   Student student;
-  Campus campus;
   bool loadSuccess = false;
   int selectedIndex = 0;
-
-  final List<Widget> children = [];
+  Size mQSize;
 
   final List<Color> scaffoldBackgroundColor = [
     Color.fromRGBO(203, 236, 252, 1),
@@ -32,6 +29,16 @@ class _Home extends State<Home> {
     Color.fromRGBO(252, 244, 204, 1),
     Color.fromRGBO(203, 236, 252, 1)
   ];
+
+  final Future<String> getData = Future<String>.delayed(
+    const Duration(seconds: 2),
+    () => 'Data Loaded',
+  );
+
+  final Shader linearGradient = LinearGradient(
+    colors: <Color>[Colors.blue, Colors.purple],
+  ).createShader(Rect.fromLTWH(0.0, 0.0, 400.0, 70.0));
+  final List<Widget> children = [];
 
   @override
   void initState() {
@@ -63,16 +70,9 @@ class _Home extends State<Home> {
     });
   }
 
-  final Future<String> getData = Future<String>.delayed(
-    const Duration(seconds: 2),
-    () => 'Data Loaded',
-  );
-  final Shader linearGradient = LinearGradient(
-    colors: <Color>[Colors.blue, Colors.purple],
-  ).createShader(Rect.fromLTWH(0.0, 0.0, 400.0, 70.0));
   @override
   Widget build(BuildContext context) {
-    final mQSize = MediaQuery.of(context).size;
+    mQSize = MediaQuery.of(context).size;
     return Scaffold(
         backgroundColor: scaffoldBackgroundColor[selectedIndex],
         body: Container(

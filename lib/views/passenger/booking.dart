@@ -1,19 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hutech_go/components/custom_button.dart';
 import 'package:hutech_go/components/custom_radio_grouped_button/CustomButtons/ButtonTextStyle.dart';
 import 'package:hutech_go/components/custom_radio_grouped_button/CustomButtons/CustomRadioCampusButton.dart';
 import 'package:hutech_go/models/campus.dart';
 import 'package:hutech_go/services/cost_calculation.dart';
 import 'package:hutech_go/services/current_location.dart';
+import 'package:hutech_go/services/googlemap_service.dart';
 import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/home.dart';
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
-// import 'package:location/location.dart';
-import 'package:geolocator/geolocator.dart';
-import 'dart:math' as math;
 
 class Booking extends StatefulWidget {
   static final routeName = "Booking";
@@ -26,32 +26,33 @@ class Booking extends StatefulWidget {
 class _Booking extends State<Booking> {
   bool multiple = true;
   List<Campus> campuses = [];
-  // Location _location = new Location();
   final Geolocator _geolocator = Geolocator();
+  //
+  String _startAddress = "Vị trí của bạn";
   Position _currentPosition;
-
+  String _currentAddress = "";
+  //
+  String _destinationAddress = "";
+  Position _destinationPosition;
   String _campusName = "Vui lòng chọn điểm đến của bạn";
-  String _yourLocation = "Vị trí của bạn";
+  //
+  Set<Marker> markers = {};
+  //
+  PolylinePoints _polylinePoints;
+  List<LatLng> _polylineCoordinates = [];
+  Map<PolylineId, Polyline> polylines = {};
+  //
   double _price = 0;
   GoogleMapController _mapController;
   LatLng _initialCameraPosition = LatLng(10.8, 106.6);
   final formatCurrency = new NumberFormat("#,###");
-  // void _onMapCreated(GoogleMapController controller) {
-  //   _mapController = controller;
-  //   _location.onLocationChanged.listen((LocationData currentLocation) {
-  //     _mapController.animateCamera(CameraUpdate.newCameraPosition(
-  //         CameraPosition(
-  //             target:
-  //                 LatLng(currentLocation.latitude, currentLocation.longitude),
-  //             zoom: 15)));
-  //   });
-  // }
 
   @override
   void initState() {
     super.initState();
     CurrentLocation().initState();
     getCurrentLocation();
+
     fetchCampusFromFireStore(widget.uniID);
   }
 
@@ -65,10 +66,105 @@ class _Booking extends State<Booking> {
             CameraPosition(
                 target: LatLng(position.latitude, position.longitude),
                 zoom: 15)));
+        getAddress();
       });
     }).catchError((e) {
-      print(e);
+      print("ERROR - " + e);
     });
+  }
+
+  getAddress() async {
+    try {
+      List<Placemark> placemarks = await _geolocator.placemarkFromCoordinates(
+          _currentPosition.latitude, _currentPosition.longitude);
+      Placemark place = placemarks[0];
+      setState(() {
+        _currentAddress =
+            "${place.name}, ${place.thoroughfare}, ${place.subAdministrativeArea}";
+        _startAddress = _currentAddress;
+        print(_currentAddress);
+      });
+    } catch (e) {
+      print("ERROR - " + e);
+    }
+  }
+
+  createPolylines(Position start, Position destination) async {
+    _polylinePoints = PolylinePoints();
+    PolylineResult result = await _polylinePoints.getRouteBetweenCoordinates(
+        GMService.API_KEY,
+        PointLatLng(start.latitude, start.longitude),
+        PointLatLng(destination.latitude, destination.longitude),
+        travelMode: TravelMode.driving);
+    print(result.errorMessage);
+    if (result.points.isNotEmpty) {
+      result.points.forEach((PointLatLng point) {
+        _polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      });
+    }
+    PolylineId polylineId = PolylineId("poly");
+    Polyline polyline = Polyline(
+        polylineId: polylineId,
+        color: Colors.green,
+        points: _polylineCoordinates,
+        width: 3);
+    polylines[polylineId] = polyline;
+  }
+
+  Future<bool> calculateDistance() async {
+    try {
+      Position startCoordinate = _currentPosition;
+      Position destinationCoordinate = _destinationPosition;
+      Marker startMarker = Marker(
+          markerId: MarkerId('$startCoordinate'),
+          position: LatLng(startCoordinate.latitude, startCoordinate.longitude),
+          infoWindow: InfoWindow(title: "Start", snippet: _startAddress),
+          icon: BitmapDescriptor.defaultMarker);
+      Marker destinationMarker = Marker(
+          markerId: MarkerId('$destinationCoordinate'),
+          position: LatLng(
+              destinationCoordinate.latitude, destinationCoordinate.longitude),
+          infoWindow:
+              InfoWindow(title: "Destination", snippet: _destinationAddress),
+          icon: BitmapDescriptor.defaultMarker);
+      markers.add(startMarker);
+      markers.add(destinationMarker);
+      print('START COORDINATE: $startCoordinate');
+      print('DESTINATION COORDINATE: $destinationCoordinate');
+
+      Position _northeastCoordinate;
+      Position _southwestCoordinate;
+
+      double miny = (startCoordinate.latitude <= destinationCoordinate.latitude)
+          ? startCoordinate.latitude
+          : destinationCoordinate.latitude;
+      double minx =
+          (startCoordinate.longitude <= destinationCoordinate.longitude)
+              ? startCoordinate.longitude
+              : destinationCoordinate.longitude;
+      double maxy = (startCoordinate.latitude <= destinationCoordinate.latitude)
+          ? destinationCoordinate.latitude
+          : startCoordinate.latitude;
+      double maxx =
+          (startCoordinate.longitude <= destinationCoordinate.longitude)
+              ? destinationCoordinate.longitude
+              : startCoordinate.longitude;
+
+      _southwestCoordinate = Position(latitude: miny, longitude: minx);
+      _northeastCoordinate = Position(latitude: maxy, longitude: maxx);
+      _mapController.animateCamera(CameraUpdate.newLatLngBounds(
+          LatLngBounds(
+              southwest: LatLng(_southwestCoordinate.latitude,
+                  _southwestCoordinate.longitude),
+              northeast: LatLng(_northeastCoordinate.latitude,
+                  _northeastCoordinate.longitude)),
+          100.0));
+      await createPolylines(startCoordinate, destinationCoordinate);
+      return true;
+    } catch (e) {
+      print("ERROR - " + e.toString());
+    }
+    return false;
   }
 
   Future<void> fetchCampusFromFireStore(String uniID) async {
@@ -107,15 +203,18 @@ class _Booking extends State<Booking> {
                     padding: EdgeInsets.only(bottom: mQSize.height * 0.35),
                     height: mQSize.height,
                     child: GoogleMap(
+                      initialCameraPosition:
+                          CameraPosition(target: _initialCameraPosition),
                       onMapCreated: (GoogleMapController controller) {
                         _mapController = controller;
                       },
+                      markers:
+                          markers != null ? Set<Marker>.from(markers) : null,
                       mapType: MapType.normal,
                       myLocationEnabled: true,
                       zoomControlsEnabled: false,
                       myLocationButtonEnabled: false,
-                      initialCameraPosition:
-                          CameraPosition(target: _initialCameraPosition),
+                      polylines: Set<Polyline>.of(polylines.values),
                     ),
                   ),
                   Positioned(
@@ -184,12 +283,25 @@ class _Booking extends State<Booking> {
                               setState(() {
                                 _campusName = campuses[value].campusName;
                                 _price = costCalculation(value.toDouble() + 1);
+                                _destinationPosition = Position(
+                                    latitude: campuses[value].location.latitude,
+                                    longitude:
+                                        campuses[value].location.longitude);
+                                if (markers.isNotEmpty) markers.clear();
+                                if (polylines.isNotEmpty) polylines.clear();
+                                if (_polylineCoordinates.isNotEmpty)
+                                  _polylineCoordinates.clear();
+                                calculateDistance();
                               });
                               print(_campusName);
                             } else {
                               setState(() {
                                 _campusName = "Vui lòng chọn điểm đến của bạn";
+                                markers.clear();
+                                polylines.clear();
+                                _polylineCoordinates.clear();
                                 _price = 0;
+                                getCurrentLocation();
                               });
                             }
                           },
@@ -208,7 +320,7 @@ class _Booking extends State<Booking> {
                                   children: [
                                     Padding(
                                       padding:
-                                          EdgeInsets.only(top: 15, bottom: 15),
+                                          EdgeInsets.only(top: 12, bottom: 12),
                                       child: Row(
                                         children: [
                                           Icon(
@@ -221,7 +333,7 @@ class _Booking extends State<Booking> {
                                                   EdgeInsets.only(left: 20),
                                               child: Container(
                                                 child: Text(
-                                                  _yourLocation,
+                                                  _startAddress,
                                                   style: TextStyle(
                                                       color: Colors.grey[700],
                                                       fontSize: 18),
@@ -232,7 +344,7 @@ class _Booking extends State<Booking> {
                                     ),
                                     Padding(
                                       padding:
-                                          EdgeInsets.only(top: 15, bottom: 15),
+                                          EdgeInsets.only(top: 12, bottom: 12),
                                       child: Row(
                                         children: [
                                           Icon(
@@ -254,7 +366,7 @@ class _Booking extends State<Booking> {
                                     ),
                                     Padding(
                                       padding:
-                                          EdgeInsets.only(top: 15, bottom: 15),
+                                          EdgeInsets.only(top: 12, bottom: 12),
                                       child: Row(
                                         children: [
                                           Icon(
@@ -275,17 +387,29 @@ class _Booking extends State<Booking> {
                                         ],
                                       ),
                                     ),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 15, bottom: 15),
-                                      child: Row(
-                                        children: [],
-                                      ),
-                                    ),
                                   ],
                                 )),
                           ],
                         ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            RoundedButtonBorder(
+                              text: "Hẹn giờ",
+                              color: Constants.primary,
+                              height: 50,
+                              width: mQSize.width * 0.18,
+                              press: () {},
+                            ),
+                            RoundedButtonFill(
+                              text: "Yêu cầu chuyến đi",
+                              color: Constants.secondary,
+                              height: 50,
+                              width: mQSize.width * 0.65,
+                              press: () {},
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
