@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,19 @@ import 'models/student.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  checkNetwork();
   runApp(MyApp());
+}
+
+Future<void> checkNetwork() async {
+  try {
+    final result = await InternetAddress.lookup('google.com');
+    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      print("true");
+    }
+  } on SocketException catch (_) {
+    print("false");
+  }
 }
 
 class MyApp extends StatelessWidget {

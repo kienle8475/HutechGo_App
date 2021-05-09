@@ -10,6 +10,7 @@ class Student {
   String gender;
   String birthday;
   String address;
+  String schoolClass;
   String email;
   String profileImage;
   String idcardImage;
@@ -31,7 +32,8 @@ class Student {
       this.idcardImage,
       this.university,
       this.status,
-      this.isDriver);
+      this.isDriver,
+      this.schoolClass);
 
   get getStudentId => this.studentId;
 
@@ -89,6 +91,10 @@ class Student {
 
   set setIsDriver(isDriver) => this.isDriver = isDriver;
 
+  get getSchoolClass => this.schoolClass;
+
+  set setSchoolClass(String schoolClass) => this.schoolClass = schoolClass;
+
   Student.fromJson(Map<String, dynamic> json) {
     studentId = json['student_id'];
     phoneNumber = json['phone_number'];
@@ -103,6 +109,7 @@ class Student {
     university = json['university'];
     status = json['status'];
     isDriver = json['is_driver'];
+    schoolClass = json['class'];
   }
 }
 

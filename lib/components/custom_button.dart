@@ -148,7 +148,7 @@ class RequestRideButton extends StatelessWidget {
 }
 
 final Shader linearGradient = LinearGradient(
-  colors: <Color>[Colors.blue, Colors.purple],
+  colors: <Color>[Colors.grey, Colors.grey],
 ).createShader(Rect.fromLTWH(0.0, 0.0, 350.0, 70.0));
 
 class HomeMenuButton extends StatelessWidget {
@@ -180,24 +180,27 @@ class HomeMenuButton extends StatelessWidget {
         onPressed: press,
         padding: EdgeInsets.all(10.0),
         color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              height: 50,
-              width: 50,
+              height: 40,
+              width: 40,
               child: icon,
             ),
             SizedBox(
               height: 20,
             ),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(text,
                     style: TextStyle(
-                        fontSize: 15,
-                        foreground: Paint()..shader = linearGradient))
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      // foreground: Paint()..shader = linearGradient)
+                      color: Colors.grey,
+                    ))
               ],
             )
           ],

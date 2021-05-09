@@ -4,7 +4,7 @@ class CurrentLocation {
   Location location = new Location();
   bool _serviceEnabled;
   PermissionStatus _permissionGranted;
-
+  LocationData locationData;
   Future<void> initState() async {
     _serviceEnabled = await location.serviceEnabled();
     if (!_serviceEnabled) {
@@ -20,14 +20,5 @@ class CurrentLocation {
         return;
       }
     }
-  }
-
-  LocationData getLocation() {
-    LocationData locationData;
-    location.onLocationChanged.listen((LocationData currentLocation) async {
-      //locationData = await location.getLocation();
-      // log('locationData: $locationData');
-    });
-    return locationData;
   }
 }
