@@ -1,15 +1,15 @@
-import 'package:barcode_flutter/barcode_flutter.dart';
+import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:hutech_go/components/custom_button.dart';
 import 'package:hutech_go/models/student.dart';
-import 'package:hutech_go/utils/constants.dart';
-import 'package:hutech_go/views/passenger/booking.dart';
+import 'package:hutech_go/views/pages/activity.dart';
+import 'package:hutech_go/views/pages/home_driver.dart';
+import 'package:hutech_go/views/pages/home_passenger.dart';
+import 'package:hutech_go/views/pages/messenger.dart';
+import 'package:hutech_go/views/pages/user_setting.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:hutech_go/services/api_service.dart';
-import 'dart:math' as math;
 
 class Home extends StatefulWidget {
   static final routeName = "home";
@@ -24,21 +24,17 @@ class _Home extends State<Home> {
   Size mQSize;
 
   final List<Color> scaffoldBackgroundColor = [
-    Color.fromRGBO(203, 236, 252, 1),
+    // Color.fromRGBO(203, 236, 252, 1),
+    Color.fromRGBO(255, 255, 255, 1),
+    Color.fromRGBO(255, 255, 255, 1),
     Color.fromRGBO(204, 228, 180, 1),
-    Color.fromRGBO(252, 244, 204, 1),
-    Color.fromRGBO(203, 236, 252, 1)
+    Color.fromRGBO(255, 255, 255, 1),
   ];
 
   final Future<String> getData = Future<String>.delayed(
     const Duration(seconds: 2),
     () => 'Data Loaded',
   );
-
-  final Shader linearGradient = LinearGradient(
-    colors: <Color>[Colors.blue, Colors.purple],
-  ).createShader(Rect.fromLTWH(0.0, 0.0, 400.0, 70.0));
-  final List<Widget> children = [];
 
   @override
   void initState() {
@@ -81,174 +77,17 @@ class _Home extends State<Home> {
                 future: fetchStudentFromFireStore(
                     FirebaseAuth.instance.currentUser.uid),
                 builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-                  List<Widget> children;
+                  List<Widget> child;
                   if (loadSuccess) {
-                    children = <Widget>[
-                      Column(
-                        children: [
-                          Container(
-                            padding:
-                                new EdgeInsets.only(top: mQSize.height * 0.08),
-                          ),
-                          Container(
-                            // padding:
-                            //     new EdgeInsets.only(top: mQSize.height * 0.15),
-                            child: Card(
-                              child: SizedBox(
-                                height: mQSize.height * 0.29,
-                                width: mQSize.width * 0.9,
-                                child: Column(
-                                  children: [
-                                    Container(
-                                      height: mQSize.height * 0.1,
-                                      child: Image.network(
-                                          "https://www.hutech.edu.vn/imgnews/homepage/stories/hinh34/logo%20CMYK-01.png"),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          height: 160,
-                                          width: 160,
-                                          child: Image.network(HttpsAPI.apiUrl +
-                                              student.profileImage),
-                                        ),
-                                        Container(
-                                          height: 140,
-                                          width: mQSize.width - 225,
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                  alignment: Alignment.center,
-                                                  child: Column(
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 0),
-                                                        child: Text(
-                                                          (student.lastName +
-                                                                  " " +
-                                                                  student
-                                                                      .firstName)
-                                                              .toUpperCase(),
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: TextStyle(
-                                                              // color: Constants.primary,
-                                                              fontSize: 22,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              foreground: Paint()
-                                                                ..shader =
-                                                                    linearGradient),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 10),
-                                                        child: Text(
-                                                          (student.birthday)
-                                                              .toUpperCase(),
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: TextStyle(
-                                                              // color: Constants.primary,
-                                                              fontSize: 18,
-                                                              foreground: Paint()
-                                                                ..shader =
-                                                                    linearGradient),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                                top: 10),
-                                                        child: Text(
-                                                          (student.studentId +
-                                                                  " - " +
-                                                                  student
-                                                                      .schoolClass)
-                                                              .toUpperCase(),
-                                                          textAlign:
-                                                              TextAlign.start,
-                                                          style: TextStyle(
-                                                              // color: Constants.primary,
-                                                              fontSize: 18,
-                                                              foreground: Paint()
-                                                                ..shader =
-                                                                    linearGradient),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                          padding:
-                                                              EdgeInsets.only(
-                                                                  top: 10),
-                                                          child: BarCodeImage(
-                                                            params:
-                                                                Code39BarCodeParams(
-                                                              student.studentId,
-                                                              lineWidth:
-                                                                  1.4, // width for a single black/white bar (default: 2.0)
-                                                              barHeight:
-                                                                  35.0, // height for the entire widget (default: 100.0)
-                                                              withText: false,
-                                                              // Render with text label or not (default: false)
-                                                            ),
-                                                            onError: (error) {
-                                                              // Error handler
-                                                              print(
-                                                                  'error = $error');
-                                                            },
-                                                          )),
-                                                    ],
-                                                  )),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            child: Card(
-                              shadowColor: Colors.white,
-                              child: SizedBox(
-                                height: mQSize.height * 0.50,
-                                width: mQSize.width * 0.9,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    RoundedButtonFill(
-                                      text: "TÌM XE",
-                                      color: Constants.primary,
-                                      height: 50,
-                                      width: mQSize.width * 0.8,
-                                      press: () {
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute(
-                                                builder: (context) => Booking(
-                                                    student.university)));
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+                    List<Widget> children = <Widget>[
+                      student.isDriver ? HomeDriver() : HomePassenger(student),
+                      Activity(),
+                      Messenger(),
+                      UserSetting(student)
                     ];
+                    child = <Widget>[children[selectedIndex]];
                   } else {
-                    children = const <Widget>[
+                    child = const <Widget>[
                       Padding(
                         padding: EdgeInsets.only(top: 300),
                         child: SizedBox(
@@ -266,7 +105,7 @@ class _Home extends State<Home> {
 
                   return Stack(
                       alignment: AlignmentDirectional.topCenter,
-                      children: children);
+                      children: child);
                 })),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(color: Colors.white, boxShadow: [
@@ -286,7 +125,7 @@ class _Home extends State<Home> {
               tabs: [
                 GButton(
                   icon: LineIcons.compass,
-                  text: 'Trang chủ',
+                  text: ' Trang chủ',
                   iconColor: Colors.grey,
                   textColor: Colors.lightBlue,
                   iconActiveColor: Colors.lightBlue,
@@ -294,23 +133,40 @@ class _Home extends State<Home> {
                 ),
                 GButton(
                   icon: LineIcons.clipboard,
-                  text: 'Hoạt động',
+                  text: ' Hoạt động',
+                  iconColor: Colors.grey,
+                  textColor: Colors.amber[600],
+                  iconActiveColor: Colors.amber[600],
+                  backgroundColor: Colors.amber[600].withOpacity(0.2),
+                  // leading: selectedIndex == 1
+                  //     ? null
+                  //     : Badge(
+                  //         badgeColor: Colors.amber,
+                  //         elevation: 0,
+                  //         position: BadgePosition.topEnd(top: -15, end: -15),
+                  //         badgeContent: Text(
+                  //           "",
+                  //           style: TextStyle(color: Colors.white),
+                  //         ),
+                  //         child: Icon(
+                  //           LineIcons.clipboard,
+                  //           color: selectedIndex == 1
+                  //               ? Colors.amber[600]
+                  //               : Colors.grey,
+                  //         ),
+                  //       ),
+                ),
+                GButton(
+                  icon: LineIcons.sms,
+                  text: ' Tin nhắn',
                   iconColor: Colors.grey,
                   textColor: Colors.lightGreen,
                   iconActiveColor: Colors.lightGreen,
                   backgroundColor: Colors.lightGreen.withOpacity(0.2),
                 ),
                 GButton(
-                  icon: LineIcons.sms,
-                  text: 'Tin nhắn',
-                  iconColor: Colors.grey,
-                  textColor: Colors.amber[600],
-                  iconActiveColor: Colors.amber[600],
-                  backgroundColor: Colors.amber[600].withOpacity(0.2),
-                ),
-                GButton(
                   icon: LineIcons.user,
-                  text: 'Tài khoản',
+                  text: ' Tài khoản',
                   iconColor: Colors.grey,
                   textColor: Colors.lightBlue,
                   iconActiveColor: Colors.lightBlue,

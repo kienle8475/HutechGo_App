@@ -6,7 +6,6 @@ import 'package:hutech_go/models/campus.dart';
 import 'package:hutech_go/models/student.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:hutech_go/services/api_service.dart';
-import 'dart:math' as math;
 
 class Home extends StatefulWidget {
   static final routeName = "home";

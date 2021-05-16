@@ -10,10 +10,11 @@ class AppBarWBack extends StatelessWidget implements PreferredSizeWidget {
         elevation: 0,
         actions: <Widget>[],
         leading: new Container(
+          height: 80,
           child: new IconButton(
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
-            icon: new Icon(Icons.arrow_back),
+            icon: new Icon(Icons.arrow_back_ios),
             color: Constants.primary,
             onPressed: () => Navigator.of(context).pop(null),
           ),

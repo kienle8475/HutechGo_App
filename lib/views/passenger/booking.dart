@@ -7,13 +7,18 @@ import 'package:hutech_go/components/custom_button.dart';
 import 'package:hutech_go/components/custom_radio_grouped_button/CustomButtons/ButtonTextStyle.dart';
 import 'package:hutech_go/components/custom_radio_grouped_button/CustomButtons/CustomRadioCampusButton.dart';
 import 'package:hutech_go/models/campus.dart';
+import 'package:hutech_go/models/directions.dart';
 import 'package:hutech_go/services/cost_calculation.dart';
 import 'package:hutech_go/services/current_location.dart';
+import 'package:hutech_go/services/direction_resository.dart';
 import 'package:hutech_go/services/googlemap_service.dart';
 import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/home.dart';
+import 'package:hutech_go/views/modals/modal_riderequest.dart';
+
 import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class Booking extends StatefulWidget {
   static final routeName = "Booking";
@@ -42,6 +47,8 @@ class _Booking extends State<Booking> {
   List<LatLng> _polylineCoordinates = [];
   Map<PolylineId, Polyline> polylines = {};
   //
+  Directions _directinfo;
+  //
   double _price = 0;
   GoogleMapController _mapController;
   LatLng _initialCameraPosition = LatLng(10.8, 106.6);
@@ -52,9 +59,14 @@ class _Booking extends State<Booking> {
     super.initState();
     CurrentLocation().initState();
     getCurrentLocation();
-
     fetchCampusFromFireStore(widget.uniID);
   }
+
+  // @override
+  // void dispose() {
+  //   _mapController.dispose();
+  //   super.dispose();
+  // }
 
   getCurrentLocation() async {
     await _geolocator
@@ -105,13 +117,14 @@ class _Booking extends State<Booking> {
     PolylineId polylineId = PolylineId("poly");
     Polyline polyline = Polyline(
         polylineId: polylineId,
-        color: Colors.green,
+        color: Colors.blue,
         points: _polylineCoordinates,
-        width: 3);
+        width: 5);
     polylines[polylineId] = polyline;
+    print(polylines.length);
   }
 
-  Future<bool> calculateDistance() async {
+  Future<bool> addMarker() async {
     try {
       Position startCoordinate = _currentPosition;
       Position destinationCoordinate = _destinationPosition;
@@ -159,7 +172,7 @@ class _Booking extends State<Booking> {
               northeast: LatLng(_northeastCoordinate.latitude,
                   _northeastCoordinate.longitude)),
           100.0));
-      await createPolylines(startCoordinate, destinationCoordinate);
+
       return true;
     } catch (e) {
       print("ERROR - " + e.toString());
@@ -214,9 +227,46 @@ class _Booking extends State<Booking> {
                       myLocationEnabled: true,
                       zoomControlsEnabled: false,
                       myLocationButtonEnabled: false,
-                      polylines: Set<Polyline>.of(polylines.values),
+                      // polylines: Set<Polyline>.of(polylines.values),
+                      polylines: {
+                        if (_directinfo != null)
+                          Polyline(
+                              polylineId: PolylineId('overview_polyline'),
+                              color: Colors.blue,
+                              width: 4,
+                              points: _directinfo.polylinePoint
+                                  .map((e) => LatLng(e.latitude, e.longitude))
+                                  .toList()),
+                      },
                     ),
                   ),
+                  if (_directinfo != null)
+                    Positioned(
+                      bottom: 400,
+                      child: Container(
+                        height: 40,
+                        padding: EdgeInsets.symmetric(
+                          vertical: 10,
+                          horizontal: 18,
+                        ),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(0, 2),
+                                  blurRadius: 6.0)
+                            ]),
+                        child: Text(
+                            '${_directinfo.totalDistance}, thời gian di chuyển ước tính: ${_directinfo.totalDuration}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.blue,
+                            )),
+                      ),
+                    ),
                   Positioned(
                       top: 40.0,
                       left: 20.0,
@@ -280,9 +330,9 @@ class _Booking extends State<Booking> {
                               textStyle: TextStyle(fontSize: 14)),
                           checkBoxButtonValues: (value) {
                             if (value != null) {
-                              setState(() {
+                              setState(() async {
                                 _campusName = campuses[value].campusName;
-                                _price = costCalculation(value.toDouble() + 1);
+
                                 _destinationPosition = Position(
                                     latitude: campuses[value].location.latitude,
                                     longitude:
@@ -291,7 +341,20 @@ class _Booking extends State<Booking> {
                                 if (polylines.isNotEmpty) polylines.clear();
                                 if (_polylineCoordinates.isNotEmpty)
                                   _polylineCoordinates.clear();
-                                calculateDistance();
+                                addMarker();
+                                final _directions = await DirectionRepository()
+                                    .getDirections(
+                                        origin: LatLng(
+                                            _currentPosition.latitude,
+                                            _currentPosition.longitude),
+                                        destination: LatLng(
+                                            _destinationPosition.latitude,
+                                            _destinationPosition.longitude));
+                                setState(() {
+                                  _directinfo = _directions;
+                                  _price = costCalculation(
+                                      _directinfo.distanceValue);
+                                });
                               });
                               print(_campusName);
                             } else {
@@ -301,6 +364,7 @@ class _Booking extends State<Booking> {
                                 polylines.clear();
                                 _polylineCoordinates.clear();
                                 _price = 0;
+                                _directinfo = null;
                                 getCurrentLocation();
                               });
                             }
@@ -334,6 +398,9 @@ class _Booking extends State<Booking> {
                                               child: Container(
                                                 child: Text(
                                                   _startAddress,
+                                                  overflow: TextOverflow.fade,
+                                                  maxLines: 1,
+                                                  softWrap: false,
                                                   style: TextStyle(
                                                       color: Colors.grey[700],
                                                       fontSize: 18),
@@ -377,10 +444,14 @@ class _Booking extends State<Booking> {
                                           Padding(
                                             padding: EdgeInsets.only(left: 20),
                                             child: Text(
-                                              formatCurrency.format(_price) +
-                                                  " VNĐ (Giá tiền ước tính)",
+                                              _price != 0
+                                                  ? formatCurrency
+                                                          .format(_price) +
+                                                      " VNĐ (Giá tiền ước tính)"
+                                                  : "",
                                               style: TextStyle(
                                                   color: Colors.grey[700],
+                                                  fontWeight: FontWeight.bold,
                                                   fontSize: 18),
                                             ),
                                           )
@@ -398,15 +469,22 @@ class _Booking extends State<Booking> {
                               text: "Hẹn giờ",
                               color: Constants.primary,
                               height: 50,
-                              width: mQSize.width * 0.18,
+                              width: mQSize.width * 0.25,
                               press: () {},
                             ),
                             RoundedButtonFill(
                               text: "Yêu cầu chuyến đi",
                               color: Constants.secondary,
                               height: 50,
-                              width: mQSize.width * 0.65,
-                              press: () {},
+                              width: mQSize.width * 0.58,
+                              press: () {
+                                showBarModalBottomSheet(
+                                    // enableDrag: false,
+                                    expand: true,
+                                    // isDismissible: false,
+                                    context: context,
+                                    builder: (context) => RideRquestrModal());
+                              },
                             ),
                           ],
                         )
