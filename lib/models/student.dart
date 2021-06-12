@@ -1,5 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:intl/intl.dart';
+import 'package:hutech_go/services/convert_service.dart';
 
 class Student {
   String studentId;
@@ -101,7 +100,7 @@ class Student {
     firstName = json['first_name'];
     lastName = json['last_name'];
     gender = json['gender'];
-    birthday = convertTimeStampToHumanDate(json['birthday']);
+    birthday = ConvertService().convertTimeStampToHumanDate(json['birthday']);
     address = json['address'];
     email = json['email'];
     profileImage = json['profile_image'];
@@ -111,27 +110,4 @@ class Student {
     isDriver = json['is_driver'];
     schoolClass = json['class'];
   }
-}
-
-// Future<Student> fetchStudentFromFireStore(String userId) async {
-//   Student student;
-//   FirebaseFirestore.instance
-//       .collection('students')
-//       .doc(userId)
-//       .get()
-//       .then((DocumentSnapshot documentSnapshot) {
-//     if (documentSnapshot.exists) {
-//       student = Student.fromJson(documentSnapshot.data());
-//       print(student.lastName + " " + student.firstName);
-//     } else {
-//       throw Exception('Document does not exist on the database');
-//     }
-//   });
-//   return student;
-// }
-
-String convertTimeStampToHumanDate(Timestamp timeStamp) {
-  var dateToTimeStamp =
-      DateTime.fromMillisecondsSinceEpoch(timeStamp.seconds * 1000);
-  return DateFormat('dd/MM/yyyy').format(dateToTimeStamp);
 }

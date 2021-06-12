@@ -1,5 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:hutech_go/views/welcome.dart';
+
+class RoundedButton extends StatelessWidget {
+  final String text;
+  final Function press;
+  final Color color;
+  final double height, width;
+  const RoundedButton(
+      {Key key, this.text, this.press, this.color, this.height, this.width})
+      : super(key: key);
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(10),
+      height: height,
+      width: width,
+      child: RaisedButton(
+        elevation: 1,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
+        onPressed: press,
+        padding: EdgeInsets.all(10.0),
+        color: Colors.white,
+        textColor: color,
+        child: Text(text, style: TextStyle(fontSize: 18)),
+      ),
+    );
+  }
+}
 
 class RoundedButtonFill extends StatelessWidget {
   final String text;
@@ -17,7 +42,7 @@ class RoundedButtonFill extends StatelessWidget {
       width: width,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4.0),
+            borderRadius: BorderRadius.circular(0.0),
             side: BorderSide(color: color)),
         onPressed: press,
         padding: EdgeInsets.all(10.0),
@@ -44,7 +69,7 @@ class RoundedButtonBorder extends StatelessWidget {
       width: width,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4.0),
+            borderRadius: BorderRadius.circular(0.0),
             side: BorderSide(color: color)),
         onPressed: press,
         padding: EdgeInsets.all(10.0),
@@ -71,7 +96,7 @@ class OtpRequest extends StatelessWidget {
       width: width,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4.0),
+            borderRadius: BorderRadius.circular(0.0),
             side: BorderSide(color: color)),
         onPressed: () {},
         padding: EdgeInsets.all(5.0),
@@ -83,6 +108,7 @@ class OtpRequest extends StatelessWidget {
   }
 }
 
+///-------------------------------------------------------------------------///
 class CampusButtonBorder extends StatelessWidget {
   final String text;
   final Function press;
@@ -110,6 +136,7 @@ class CampusButtonBorder extends StatelessWidget {
   }
 }
 
+///-------------------------------------------------------------------------///
 class RequestRideButton extends StatelessWidget {
   final String text;
   final Function press;
@@ -133,7 +160,7 @@ class RequestRideButton extends StatelessWidget {
       width: width,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(4.0),
+            borderRadius: BorderRadius.circular(0.0),
             side: BorderSide(color: color)),
         onPressed: press,
         padding: EdgeInsets.all(10.0),
@@ -147,6 +174,7 @@ class RequestRideButton extends StatelessWidget {
   }
 }
 
+///-------------------------------------------------------------------------///
 final Shader linearGradient = LinearGradient(
   colors: <Color>[Colors.grey, Colors.grey],
 ).createShader(Rect.fromLTWH(0.0, 0.0, 350.0, 70.0));
@@ -174,7 +202,7 @@ class HomeMenuButton extends StatelessWidget {
       width: width,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4.0),
+          borderRadius: BorderRadius.circular(0.0),
           // side: BorderSide(color: Colors.purple)
         ),
         onPressed: press,

@@ -311,6 +311,7 @@ class CupertinoSettingsItemState extends State<CupertinoSettingsItem> {
               ? iosPressedTileColorDark
               : iosTileDarkColor;
 
+  // ignore: missing_return
   Color _iconColor(ThemeData theme, ListTileTheme tileTheme) {
     if (tileTheme.selectedColor != null) {
       return tileTheme.selectedColor;
