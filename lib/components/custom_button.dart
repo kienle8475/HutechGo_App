@@ -81,6 +81,77 @@ class RoundedButtonBorder extends StatelessWidget {
   }
 }
 
+class RoundedButtonGradient extends StatelessWidget {
+  final String text;
+  final Function press;
+  final Color color;
+  final double height, width;
+  const RoundedButtonGradient(
+      {Key key, this.text, this.press, this.color, this.height, this.width})
+      : super(key: key);
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(10),
+      height: height,
+      width: width,
+      child: RaisedGradientButton(
+        onPressed: press,
+        gradient: LinearGradient(
+          colors: <Color>[
+            Color.fromRGBO(242, 42, 255, 1),
+            Color.fromRGBO(21, 179, 255, 1)
+          ],
+        ),
+        child: Text(text,
+            style: TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+                fontWeight: FontWeight.bold)),
+      ),
+    );
+  }
+}
+
+class RaisedGradientButton extends StatelessWidget {
+  final Widget child;
+  final Gradient gradient;
+  final double width;
+  final double height;
+  final Function onPressed;
+
+  const RaisedGradientButton({
+    Key key,
+    @required this.child,
+    this.gradient,
+    this.width = double.infinity,
+    this.height = 50.0,
+    this.onPressed,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: 50.0,
+      decoration: BoxDecoration(gradient: gradient, boxShadow: [
+        BoxShadow(
+          color: Colors.grey[500],
+          offset: Offset(0.0, 1.5),
+          blurRadius: 1.5,
+        ),
+      ]),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+            onTap: onPressed,
+            child: Center(
+              child: child,
+            )),
+      ),
+    );
+  }
+}
+
 class OtpRequest extends StatelessWidget {
   final String text;
   final Function press;
@@ -103,34 +174,6 @@ class OtpRequest extends StatelessWidget {
         color: Colors.white,
         textColor: color,
         child: Text(text, style: TextStyle(fontSize: 12)),
-      ),
-    );
-  }
-}
-
-///-------------------------------------------------------------------------///
-class CampusButtonBorder extends StatelessWidget {
-  final String text;
-  final Function press;
-  final Color color;
-  final double height, width;
-  const CampusButtonBorder(
-      {Key key, this.text, this.press, this.color, this.height, this.width})
-      : super(key: key);
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10),
-      height: height,
-      width: width,
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0.0),
-            side: BorderSide(color: color)),
-        onPressed: () {},
-        padding: EdgeInsets.all(10.0),
-        color: Colors.white,
-        textColor: color,
-        child: Text(text, style: TextStyle(fontSize: 15)),
       ),
     );
   }
@@ -176,7 +219,7 @@ class RequestRideButton extends StatelessWidget {
 
 ///-------------------------------------------------------------------------///
 final Shader linearGradient = LinearGradient(
-  colors: <Color>[Colors.grey, Colors.grey],
+  colors: <Color>[Colors.pink, Colors.blue],
 ).createShader(Rect.fromLTWH(0.0, 0.0, 350.0, 70.0));
 
 class HomeMenuButton extends StatelessWidget {
@@ -226,7 +269,7 @@ class HomeMenuButton extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600,
-                      // foreground: Paint()..shader = linearGradient)
+                      foreground: Paint()..shader = linearGradient,
                       color: Colors.grey,
                     ))
               ],

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hutech_go/models/student.dart';
+import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/pages/activity/activity.dart';
 import 'package:hutech_go/views/pages/driver/home_driver.dart';
 import 'package:hutech_go/views/pages/passenger/home_passenger.dart';
@@ -125,63 +126,37 @@ class _Home extends State<Home> {
                   icon: LineIcons.compass,
                   text: ' Trang chủ',
                   iconColor: Colors.grey,
-                  textColor: Colors.blue[600],
-                  iconActiveColor: Colors.blue[600],
+                  textColor: Constants.primary,
+                  iconActiveColor: Constants.primary,
                   backgroundColor: Colors.transparent,
                 ),
                 GButton(
                   icon: LineIcons.clipboard,
                   text: ' Hoạt động',
                   iconColor: Colors.grey,
-                  textColor: Colors.blue[600],
-                  iconActiveColor: Colors.blue[600],
+                  textColor: Constants.primary,
+                  iconActiveColor: Constants.primary,
                   backgroundColor: Colors.transparent,
                 ),
                 GButton(
                   icon: LineIcons.sms,
                   text: ' Tin nhắn',
                   iconColor: Colors.grey,
-                  textColor: Colors.blue[600],
-                  iconActiveColor: Colors.blue[600],
+                  textColor: Constants.primary,
+                  iconActiveColor: Constants.primary,
                   backgroundColor: Colors.transparent,
                 ),
                 GButton(
                   icon: LineIcons.user,
                   text: ' Tài khoản',
                   iconColor: Colors.grey,
-                  textColor: Colors.blue[600],
-                  iconActiveColor: Colors.blue[600],
+                  textColor: Constants.primary,
+                  iconActiveColor: Constants.primary,
                   backgroundColor: Colors.transparent,
                 )
               ],
             ),
           ),
-        ));
-  }
-}
-
-class Background extends StatelessWidget {
-  final Widget child;
-  const Background({
-    Key key,
-    @required this.child,
-  }) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    Size mQSize = MediaQuery.of(context).size;
-    return Container(
-        height: mQSize.height,
-        width: mQSize.width,
-        child: Stack(
-          alignment: Alignment.topCenter,
-          children: <Widget>[
-            Container(
-              child: Image.asset(
-                "assets/images/profile_wallpaper_2.jpg",
-              ),
-            ),
-            child
-          ],
         ));
   }
 }

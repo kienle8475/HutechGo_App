@@ -44,6 +44,7 @@ dependencies:
   material_dialogs: ^1.0.0
   badges: ^2.0.1
   percent_indicator: "^3.0.1"
+  qr_flutter: ^4.0.0
 
 
 

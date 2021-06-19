@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hutech_go/utils/constants.dart';
 
 class ActivityHistory extends StatelessWidget {
   @override
@@ -19,7 +20,7 @@ class ActivityHistory extends StatelessWidget {
           Text(
             "Có vẻ bạn chưa thực hiện chuyến đi nào",
             style: TextStyle(
-                color: Colors.blue[600],
+                color: Constants.primary,
                 fontSize: 20,
                 fontWeight: FontWeight.w600),
           ),

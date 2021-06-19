@@ -20,6 +20,7 @@ import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/modals/modal_riderequest.dart';
 import 'package:hutech_go/views/general/home.dart';
 
+// ignore: must_be_immutable
 class Booking extends StatefulWidget {
   static final routeName = "Booking";
   String uniID;
@@ -315,8 +316,8 @@ class _Booking extends State<Booking> {
                           height: 40,
                           absoluteZeroSpacing: false,
                           defaultSelected: null,
-                          selectedColor: Theme.of(context).accentColor,
-                          unSelectedColor: Theme.of(context).canvasColor,
+                          selectedColor: Constants.primary,
+                          unSelectedColor: Constants.white,
                           campuses: campuses,
                           buttonTextStyle: ButtonTextStyle(
                               selectedColor: Colors.white,
@@ -461,7 +462,7 @@ class _Booking extends State<Booking> {
                                         children: [
                                           Icon(
                                             LineIcons.moneyBill,
-                                            color: Constants.secondary,
+                                            color: Colors.green,
                                             size: 24.0,
                                           ),
                                           Padding(
@@ -490,7 +491,7 @@ class _Booking extends State<Booking> {
                           children: [
                             RoundedButtonBorder(
                               text: "Hẹn giờ",
-                              color: Constants.secondary,
+                              color: Constants.primary,
                               height: 50,
                               width: mQSize.width * 0.25,
                               press: () {
@@ -498,16 +499,16 @@ class _Booking extends State<Booking> {
                                     builder: (context) => Rating()));
                               },
                             ),
-                            RoundedButtonFill(
+                            RoundedButtonGradient(
                               text: "Yêu cầu chuyến đi",
                               color: Constants.primary,
                               height: 50,
                               width: mQSize.width * 0.58,
                               press: () {
                                 showCupertinoModalBottomSheet(
-                                    expand: false,
+                                    expand: true,
                                     isDismissible: false,
-                                    enableDrag: true,
+                                    enableDrag: false,
                                     context: context,
                                     topRadius: Radius.circular(0),
                                     builder: (context) => RideRequestModal());

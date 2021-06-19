@@ -1,20 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hutech_go/components/custom_segmented_control.dart';
+import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/pages/activity/activity_currentactivity.dart';
 
 import 'activity_history.dart';
 
 class Activity extends StatefulWidget {
-  static Widget giveCenter(String yourText) {
-    return Center(
-      child: Text(
-        "Text: $yourText",
-        style: TextStyle(color: Colors.blue, fontSize: 20.0),
-      ),
-    );
-  }
-
   @override
   _ActivityState createState() => _ActivityState();
 }
@@ -38,7 +30,7 @@ class _ActivityState extends State<Activity> {
         body: bodies[tabIndex],
         appBar: AppBar(
           elevation: 2.0,
-          backgroundColor: Colors.blue[600],
+          backgroundColor: Constants.primary,
           bottom: PreferredSize(
               preferredSize: Size(double.infinity, 50.0),
               child: Padding(
@@ -46,7 +38,7 @@ class _ActivityState extends State<Activity> {
                 child: SegmentedControl(
                   initialPosition: 0,
                   selectedColor: Colors.white,
-                  unSelectedColor: Colors.blue[600],
+                  unSelectedColor: Constants.primary,
                   borderColor: Colors.white,
                   height: 45,
                   width: mQSize.width * 0.45,

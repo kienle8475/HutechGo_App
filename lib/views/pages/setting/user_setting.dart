@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hutech_go/components/custom_button.dart';
 import 'package:hutech_go/components/setting_ui_component/settings_ui.dart';
 import 'package:hutech_go/models/student.dart';
+import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/general/welcome.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 
@@ -30,7 +31,7 @@ class Header extends StatelessWidget {
   CollectionReference fbstudent =
       FirebaseFirestore.instance.collection('students');
   final Shader linearGradient = LinearGradient(
-    colors: <Color>[Colors.blue, Colors.purple],
+    colors: <Color>[Constants.primary, Colors.purple],
   ).createShader(Rect.fromLTWH(0.0, 0.0, 400.0, 70.0));
 
   Header({Key key, @required this.child, @required this.student})
@@ -159,25 +160,26 @@ class Header extends StatelessWidget {
                             tiles: [
                               SettingsTile(
                                 title: "Chính sách bảo mật",
-                                leading:
-                                    Icon(Icons.security, color: Colors.blue),
+                                leading: Icon(Icons.security,
+                                    color: Constants.primary),
                                 onPressed: (BuildContext context) {},
                               ),
                               SettingsTile(
                                 title: "Điều khoản dịch vụ",
                                 leading: Icon(Icons.library_books,
-                                    color: Colors.blue),
+                                    color: Constants.primary),
                                 onPressed: (BuildContext context) {},
                               ),
                               SettingsTile(
                                 title: "Trợ giúp và yêu cầu hỗ trợ",
-                                leading: Icon(Icons.info, color: Colors.blue),
+                                leading:
+                                    Icon(Icons.info, color: Constants.primary),
                                 onPressed: (BuildContext context) {},
                               ),
                               SettingsTile(
                                 title: "Giới thiệu bạn bè",
-                                leading:
-                                    Icon(Icons.person_add, color: Colors.blue),
+                                leading: Icon(Icons.person_add,
+                                    color: Constants.primary),
                                 onPressed: (BuildContext context) {},
                               ),
                               SettingsTile(
@@ -201,7 +203,7 @@ class Header extends StatelessWidget {
                       text: student.isDriver == false
                           ? "Chuyển chế độ tài xế"
                           : "Chuyển chế độ hành khách",
-                      color: Colors.green,
+                      color: Constants.primary,
                       height: 50,
                       width: mQSize.width * 0.9,
                       press: () {
@@ -218,7 +220,7 @@ class Header extends StatelessWidget {
                             msg: "Bạn có chắc chắn đăng xuất?",
                             // title: "Đăng xuất",
                             msgStyle: TextStyle(
-                                fontSize: 18, color: Colors.blue[600]),
+                                fontSize: 18, color: Constants.primary),
                             titleStyle: TextStyle(fontSize: 18),
                             context: context,
                             actions: [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hutech_go/utils/constants.dart';
 
 class MessengerNotification extends StatelessWidget {
   @override
@@ -19,7 +20,7 @@ class MessengerNotification extends StatelessWidget {
           Text(
             "Bạn không có thông báo nào",
             style: TextStyle(
-                color: Colors.blue[600],
+                color: Constants.primary,
                 fontSize: 20,
                 fontWeight: FontWeight.w600),
           ),

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hutech_go/components/custom_button.dart';
 import 'package:hutech_go/models/student.dart';
+import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/pages/passenger/booking.dart';
 
 // ignore: must_be_immutable
@@ -26,24 +27,21 @@ class HomePassenger extends StatelessWidget {
           //     new EdgeInsets.only(top: mQSize.height * 0.15),
           child: Container(
             decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(color: Colors.grey[100], width: 1),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.lightBlue.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 1,
-                      offset: Offset(0, 0))
-                ]),
+              color: Colors.white,
+              border: Border.all(color: Constants.primary, width: 1),
+            ),
             child: SizedBox(
-              height: mQSize.height * 0.29,
+              height: mQSize.height * 0.31,
               width: mQSize.width * 0.9,
               child: Column(
                 children: [
-                  Container(
-                    height: mQSize.height * 0.1,
-                    child: Image.network(
-                        "https://www.hutech.edu.vn/imgnews/homepage/stories/hinh34/logo%20CMYK-01.png"),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Container(
+                      height: mQSize.height * 0.08,
+                      child: Image.network(
+                          "https://www.hutech.edu.vn/imgnews/homepage/stories/hinh34/logo%20CMYK-01.png"),
+                    ),
                   ),
                   Row(
                     children: [
@@ -152,7 +150,7 @@ class HomePassenger extends StatelessWidget {
                   //     height: mQSize.height * 0.2,
                   //   ),
                   // ),
-                  RoundedButtonBorder(
+                  RoundedButtonGradient(
                     text: "TÌM XE",
                     color: Colors.lightBlue,
                     height: 50,
