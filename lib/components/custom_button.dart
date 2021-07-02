@@ -15,7 +15,7 @@ class RoundedButton extends StatelessWidget {
       width: width,
       child: RaisedButton(
         elevation: 1,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0.0)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         onPressed: press,
         padding: EdgeInsets.all(10.0),
         color: Colors.white,
@@ -42,7 +42,7 @@ class RoundedButtonFill extends StatelessWidget {
       width: width,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0.0),
+            borderRadius: BorderRadius.circular(8.0),
             side: BorderSide(color: color)),
         onPressed: press,
         padding: EdgeInsets.all(10.0),
@@ -69,7 +69,7 @@ class RoundedButtonBorder extends StatelessWidget {
       width: width,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0.0),
+            borderRadius: BorderRadius.circular(8.0),
             side: BorderSide(color: color)),
         onPressed: press,
         padding: EdgeInsets.all(10.0),
@@ -133,13 +133,16 @@ class RaisedGradientButton extends StatelessWidget {
     return Container(
       width: width,
       height: 50.0,
-      decoration: BoxDecoration(gradient: gradient, boxShadow: [
-        BoxShadow(
-          color: Colors.grey[500],
-          offset: Offset(0.0, 1.5),
-          blurRadius: 1.5,
-        ),
-      ]),
+      decoration: BoxDecoration(
+          gradient: gradient,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey[500],
+              offset: Offset(0.0, 1.5),
+              blurRadius: 1.5,
+            ),
+          ]),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -167,7 +170,7 @@ class OtpRequest extends StatelessWidget {
       width: width,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0.0),
+            borderRadius: BorderRadius.circular(8.0),
             side: BorderSide(color: color)),
         onPressed: () {},
         padding: EdgeInsets.all(5.0),
@@ -203,7 +206,7 @@ class RequestRideButton extends StatelessWidget {
       width: width,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(0.0),
+            borderRadius: BorderRadius.circular(8.0),
             side: BorderSide(color: color)),
         onPressed: press,
         padding: EdgeInsets.all(10.0),
@@ -245,7 +248,7 @@ class HomeMenuButton extends StatelessWidget {
       width: width,
       child: RaisedButton(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(0.0),
+          borderRadius: BorderRadius.circular(8.0),
           // side: BorderSide(color: Colors.purple)
         ),
         onPressed: press,

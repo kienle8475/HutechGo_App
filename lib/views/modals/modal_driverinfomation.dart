@@ -1,6 +1,11 @@
+import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hutech_go/components/custom_button.dart';
+import 'package:hutech_go/components/custom_message.dart';
+import 'package:hutech_go/components/custom_notch.dart';
+import 'package:hutech_go/utils/constants.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class DriverInfomationModal extends StatefulWidget {
@@ -14,81 +19,98 @@ class _DriverInfomationModal extends State<DriverInfomationModal> {
   Widget build(BuildContext context) {
     final mQSize = MediaQuery.of(context).size;
     return Material(
-      child: Container(
-        margin: EdgeInsets.all(20),
+        child: Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        padding: EdgeInsets.only(top: 12),
         child: Column(
           children: [
             Container(
-              height: mQSize.height * 0.22,
-              width: mQSize.width,
-              decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(color: Colors.grey[100], width: 2)),
-              ),
-              child: Column(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(),
                   Container(
-                    padding: EdgeInsets.all(6),
-                    child: Text(
-                      "Họ tên: Trung Kiên",
-                      style: TextStyle(
-                          color: Colors.grey[800],
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18),
+                    padding: EdgeInsets.only(left: 12, bottom: 12),
+                    child: SizedBox(
+                      width: mQSize.width * 0.38,
+                      child: QrImage(
+                        data: "1253646481287381379817977",
+                        version: QrVersions.auto,
+                      ),
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(6),
-                    child: Text(
-                      "Số điện thoại: 0966096510",
-                      style: TextStyle(color: Colors.blue, fontSize: 18),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(6),
-                    child: Text(
-                      "Số xe: ABC-012345",
-                      style: TextStyle(color: Colors.grey[800], fontSize: 18),
-                    ),
-                  ),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text("Đang trên đường đến đón bạn ~ 3 phút",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400))),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text("Nhấn để xem lộ trình",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w400))),
-                ],
-              ),
-            ),
-            Container(
-              child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(8),
-                    child: Text(
-                      "Hãy đưa tài xế quét mã để xác nhận bạn nhé!",
-                      style: TextStyle(color: Colors.blue, fontSize: 18),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(top: 20, bottom: 20),
-                    child: QrImage(
-                      data: "1234567890",
-                      version: QrVersions.auto,
-                      size: mQSize.width * 0.6,
+                    padding: EdgeInsets.only(left: 6, top: 6, bottom: 6),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(bottom: 8),
+                          child: Text("Tài xế: Trung Kiên",
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black54)),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(bottom: 8),
+                          child: Text("0966096510",
+                              style: TextStyle(
+                                  fontSize: 20, color: Constants.primary)),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(bottom: 8),
+                          child: Text("Honda màu xanh",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.grey)),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(bottom: 8),
+                          child: Text("81B1 - 12345",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.grey)),
+                        ),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(top: 5, right: 20),
+                              child: TextNotch(
+                                text: "500 m",
+                                color: Constants.primary,
+                                fontSize: 20,
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(top: 5, right: 20),
+                              child: TextNotch(
+                                text: "3 phút",
+                                color: Constants.primary,
+                                fontSize: 20,
+                              ),
+                            )
+                          ],
+                        )
+                      ],
                     ),
                   )
                 ],
               ),
             ),
             Container(
+                decoration: BoxDecoration(color: Colors.grey[100]),
+                padding: EdgeInsets.only(bottom: 12),
+                child: SizedBox(
+                    width: mQSize.width * 0.91,
+                    height: mQSize.height * 0.65,
+                    child: ChatMessage(
+                      text:
+                          "abcakjjakjlkajdkajkdlakdmncnmcnmasnmnm,akjlkajdkajkdlakdmncnmcnmasnmakjlkajdkajkdlakdmncnmcnmasnmn",
+                      color: Constants.primary,
+                    ))),
+            Container(
+              padding: EdgeInsets.only(top: 12),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -96,14 +118,14 @@ class _DriverInfomationModal extends State<DriverInfomationModal> {
                       text: "Báo cáo tài xế",
                       color: Colors.red,
                       height: 50,
-                      width: mQSize.width * 0.40,
+                      width: mQSize.width * 0.42,
                       press: () {},
                     ),
                     RoundedButtonBorder(
                       text: "Hủy chuyến đi",
                       color: Colors.red,
                       height: 50,
-                      width: mQSize.width * 0.40,
+                      width: mQSize.width * 0.42,
                       press: () {},
                     ),
                   ]),
@@ -111,6 +133,6 @@ class _DriverInfomationModal extends State<DriverInfomationModal> {
           ],
         ),
       ),
-    );
+    ));
   }
 }

@@ -27,9 +27,9 @@ class HomePassenger extends StatelessWidget {
           //     new EdgeInsets.only(top: mQSize.height * 0.15),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border.all(color: Constants.primary, width: 1),
-            ),
+                color: Colors.white,
+                border: Border.all(color: Constants.primary, width: 1),
+                borderRadius: BorderRadius.circular(8)),
             child: SizedBox(
               height: mQSize.height * 0.31,
               width: mQSize.width * 0.9,

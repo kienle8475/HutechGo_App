@@ -8,6 +8,7 @@ import 'package:hutech_go/components/custom_button.dart';
 import 'package:hutech_go/components/driver_response_card.dart';
 import 'package:hutech_go/models/driver_response.dart';
 import 'package:hutech_go/views/modals/modal_driverinfomation.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class RideRequestModal extends StatefulWidget {
   RideRequestModal({Key key}) : super(key: key);
@@ -112,26 +113,14 @@ class _RideRequestModal extends State<RideRequestModal> {
                                     press: () {
                                       Navigator.of(context, rootNavigator: true)
                                           .pop("Discard");
-                                      showModalBottomSheet(
-                                          backgroundColor: Colors.transparent,
-                                          barrierColor: Colors.transparent,
-                                          isScrollControlled: true,
+                                      showCupertinoModalBottomSheet(
+                                          expand: true,
                                           isDismissible: false,
                                           enableDrag: true,
+                                          topRadius: Radius.circular(0),
                                           context: context,
                                           builder: (context) {
-                                            return DraggableScrollableSheet(
-                                                initialChildSize:
-                                                    0.75, //set this as you want
-                                                maxChildSize:
-                                                    0.75, //set this as you want
-                                                minChildSize:
-                                                    0.75, //set this as you want
-                                                expand: true,
-                                                builder: (context,
-                                                    scrollController) {
-                                                  return DriverInfomationModal(); //whatever you're returning, does not have to be a Container
-                                                });
+                                            return DriverInfomationModal(); //whatever you're returning, does not have to be a Container
                                           });
                                     },
                                   );
