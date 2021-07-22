@@ -2,16 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:hutech_go/components/custom_appbar.dart';
 import 'package:hutech_go/views/general/otp_confirm.dart';
 
-class Login extends StatefulWidget {
+class Signup extends StatefulWidget {
   static final routeName = "login";
   @override
-  _Login createState() => _Login();
+  _Signup createState() => _Signup();
 }
 
-class _Login extends State<Login> {
+class _Signup extends State<Signup> {
   bool _isLoading = false;
   String _countrycode;
   TextEditingController _controllerPhoneNumber = TextEditingController();
@@ -20,7 +19,7 @@ class _Login extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final mQSize = MediaQuery.of(context).size;
-    verifyPhoneNumber(bool isLogin) async {
+    verifyPhoneNumber() async {
       await FirebaseAuth.instance.verifyPhoneNumber(
           phoneNumber: _countrycode + _controllerPhoneNumber.text,
           verificationCompleted: (PhoneAuthCredential credential) async {
@@ -35,7 +34,7 @@ class _Login extends State<Login> {
             setState(() {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => OtpConfirm(verificationID,
-                      _countrycode + _controllerPhoneNumber.text, isLogin)));
+                      _countrycode + _controllerPhoneNumber.text, false)));
             });
           },
           codeAutoRetrievalTimeout: (String verificationID) {
@@ -56,23 +55,15 @@ class _Login extends State<Login> {
         }
       });
       if (isValidUser) {
-        await verifyPhoneNumber(true);
-        setState(() {
-          _isLoading = false;
-        });
+        await verifyPhoneNumber();
+        _isLoading = false;
       } else {
         FocusScope.of(context).unfocus();
         _scaffoldkey.currentState.showSnackBar(SnackBar(
-          content: Text('Số điện thoại chưa đăng ký'),
-          action: SnackBarAction(
-              label: "Đăng ký ngay?",
-              onPressed: () {
-                verifyPhoneNumber(false);
-              }),
+          content: Text('Số điện thoại chưa được đăng ký'),
+          action: SnackBarAction(),
         ));
-        setState(() {
-          _isLoading = false;
-        });
+        _isLoading = false;
       }
     }
 
@@ -80,7 +71,6 @@ class _Login extends State<Login> {
       key: _scaffoldkey,
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: false,
-      appBar: AppBarWBack(),
       body: SafeArea(
           child: GestureDetector(
         behavior: HitTestBehavior.opaque,

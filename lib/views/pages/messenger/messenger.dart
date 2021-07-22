@@ -28,7 +28,7 @@ class _Messenger extends State<Messenger> {
           elevation: 2.0,
           backgroundColor: Colors.white,
           bottom: PreferredSize(
-              preferredSize: Size(double.infinity, 50.0),
+              preferredSize: Size(double.infinity, 10.0),
               child: Padding(
                 padding: EdgeInsets.only(top: 5.0, bottom: 15.0),
                 child: SegmentedControl(

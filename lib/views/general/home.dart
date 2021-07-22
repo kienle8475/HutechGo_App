@@ -27,7 +27,7 @@ class _Home extends State<Home> {
     Color.fromRGBO(255, 255, 255, 1),
     Color.fromRGBO(255, 255, 255, 1),
     Color.fromRGBO(255, 255, 255, 1),
-    Color.fromRGBO(255, 255, 255, 1),
+    Color.fromRGBO(255, 255, 255, 1)
   ];
 
   final Future<String> getData = Future<String>.delayed(
@@ -79,7 +79,9 @@ class _Home extends State<Home> {
                   List<Widget> child;
                   if (loadSuccess) {
                     List<Widget> children = <Widget>[
-                      student.isDriver ? HomeDriver() : HomePassenger(student),
+                      student.isDriver
+                          ? HomeDriver(student)
+                          : HomePassenger(student),
                       Activity(),
                       Messenger(),
                       UserSetting(student)

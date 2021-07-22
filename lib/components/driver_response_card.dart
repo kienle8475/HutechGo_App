@@ -46,8 +46,8 @@ class _DriverResponseCardState extends State<DriverResponseCard> {
         child: Container(
           width: mQSize.width,
           margin: new EdgeInsets.only(
-              left: mQSize.height * 0.02,
-              right: mQSize.height * 0.02,
+              left: mQSize.height * 0.01,
+              right: mQSize.height * 0.01,
               top: mQSize.height * 0.01),
           decoration: BoxDecoration(
             boxShadow: [
@@ -59,8 +59,8 @@ class _DriverResponseCardState extends State<DriverResponseCard> {
           ),
           child: Card(
             child: SizedBox(
-              height: mQSize.height * 0.2,
-              width: mQSize.width * 0.8,
+              height: mQSize.height * 0.22,
+              width: mQSize.width * 0.9,
               child: Container(
                   child: Column(
                 children: [
@@ -103,9 +103,10 @@ class _DriverResponseCardState extends State<DriverResponseCard> {
                                   ],
                                 ),
                                 child: CircleAvatar(
-                                  radius: 50,
+                                  radius: 40,
                                   backgroundColor: Colors.white,
-                                  // backgroundImage: AssetImage("assets/images/avatar.jpg"),
+                                  backgroundImage: NetworkImage(
+                                      widget.driverResponse.universityName),
                                 )
                                 // Profile
                                 ),
@@ -117,7 +118,7 @@ class _DriverResponseCardState extends State<DriverResponseCard> {
                                 direction: Axis.horizontal,
                                 allowHalfRating: true,
                                 itemCount: 5,
-                                itemSize: 20,
+                                itemSize: 16,
                                 ignoreGestures: true,
                                 itemPadding:
                                     EdgeInsets.symmetric(horizontal: 0.0),
@@ -139,7 +140,7 @@ class _DriverResponseCardState extends State<DriverResponseCard> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: EdgeInsets.only(left: 10),
+                              margin: EdgeInsets.only(left: 5),
                               child: Text(widget.driverResponse.studentName,
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -151,21 +152,21 @@ class _DriverResponseCardState extends State<DriverResponseCard> {
                               child: Row(
                                 children: [
                                   Container(
-                                    margin: EdgeInsets.only(left: 10),
+                                    margin: EdgeInsets.only(left: 5),
                                     child: Text(
                                       "${widget.driverResponse.distance.toStringAsFixed(0)} km - ${widget.driverResponse.timeArrival.toStringAsFixed(0)} phút",
                                       style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 16,
                                         color: Colors.grey,
                                       ),
                                     ),
                                   ),
                                   Container(
-                                    margin: EdgeInsets.only(left: 25),
+                                    margin: EdgeInsets.only(left: 5),
                                     child: Text(
                                       " đ ${formatCurrency.format(widget.driverResponse.price)}",
                                       style: TextStyle(
-                                        fontSize: 30,
+                                        fontSize: 26,
                                         color: Color.fromRGBO(21, 179, 255, 1),
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -175,16 +176,16 @@ class _DriverResponseCardState extends State<DriverResponseCard> {
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: 10),
+                              margin: EdgeInsets.only(left: 5),
                               child: SizedBox(
-                                width: 260.0,
+                                width: 215.0,
                                 child: Text(
-                                  "${widget.driverResponse.universityName}",
+                                  "Đại học Công nghệ thành phố Hồ Chí Minh",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   softWrap: false,
                                   style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     color: Colors.grey,
                                   ),
                                 ),

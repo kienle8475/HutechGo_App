@@ -44,10 +44,12 @@ dependencies:
   settings_ui: ^1.0.0
   material_dialogs: ^1.0.0
   badges: ^2.0.1
-  percent_indicator: "^3.0.1"
+  percent_indicator: ^3.0.1
   qr_flutter: ^4.0.0
   dash_chat: ^1.1.16
   image_picker: ^0.8.0+3
+  url_launcher: ^6.0.9
+  uuid: ^3.0.4
 
 
 
@@ -77,7 +79,6 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - assets/icons/
     - assets/images/
     - assets/images/logos/
     - assets/fonts/

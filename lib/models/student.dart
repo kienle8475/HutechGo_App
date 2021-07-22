@@ -4,8 +4,7 @@ class Student {
   String studentId;
   String userId;
   String phoneNumber;
-  String firstName;
-  String lastName;
+  String studentName;
   String gender;
   String birthday;
   String address;
@@ -21,8 +20,7 @@ class Student {
       this.studentId,
       this.userId,
       this.phoneNumber,
-      this.firstName,
-      this.lastName,
+      this.studentName,
       this.gender,
       this.birthday,
       this.address,
@@ -46,13 +44,9 @@ class Student {
 
   set setPhoneNumber(phoneNumber) => this.phoneNumber = phoneNumber;
 
-  get getFirstName => this.firstName;
+  get getStudentName => this.studentName;
 
-  set setFirstName(firstName) => this.firstName = firstName;
-
-  get getLastName => this.lastName;
-
-  set setLastName(lastName) => this.lastName = lastName;
+  set setStudentName(studentName) => this.studentName = studentName;
 
   get getGender => this.gender;
 
@@ -97,10 +91,9 @@ class Student {
   Student.fromJson(Map<String, dynamic> json) {
     studentId = json['student_id'];
     phoneNumber = json['phone_number'];
-    firstName = json['first_name'];
-    lastName = json['last_name'];
+    studentName = json['student_name'];
     gender = json['gender'];
-    birthday = ConvertService().convertTimeStampToHumanDate(json['birthday']);
+    birthday = json['birthday'];
     address = json['address'];
     email = json['email'];
     profileImage = json['profile_image'];

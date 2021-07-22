@@ -66,7 +66,6 @@ class SettingsSection extends AbstractSection {
             ),
         ],
       ),
-      headerPadding: titlePadding,
     );
   }
 

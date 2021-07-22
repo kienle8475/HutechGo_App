@@ -7,38 +7,37 @@ class ActivityHistory extends StatelessWidget {
   Widget build(BuildContext context) {
     Size mQSize = MediaQuery.of(context).size;
     return SafeArea(
-        child: Center(
-      child: Column(
-        children: [
-          SizedBox(
-            height: mQSize.height * 0.6,
-            width: mQSize.width * 0.6,
-            child: Image.asset(
-              "assets/images/emptystate_task.png",
-            ),
-          ),
-          Text(
-            "Có vẻ bạn chưa thực hiện chuyến đi nào",
-            style: TextStyle(
-                color: Constants.primary,
-                fontSize: 20,
-                fontWeight: FontWeight.w600),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-              width: mQSize.width * 0.8,
-              child: Text(
-                "Hãy cùng đến trường với Uni Go nhé!",
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 18,
-                ),
-                textAlign: TextAlign.center,
-              ))
-        ],
-      ),
+        child: Scaffold(
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true,
+      body: SafeArea(
+          child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus &&
+              currentFocus.focusedChild != null) {
+            FocusManager.instance.primaryFocus.unfocus();
+          }
+        },
+        child: ListView(
+          children: [
+            Form(
+              child: Container(
+                width: mQSize.width,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(height: mQSize.height * 0.01),
+                      Image.asset(
+                        "assets/images/history.jpg",
+                      ),
+                    ]),
+              ),
+            )
+          ],
+        ),
+      )),
     ));
   }
 }

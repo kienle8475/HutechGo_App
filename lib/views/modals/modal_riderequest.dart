@@ -53,7 +53,7 @@ class _RideRequestModal extends State<RideRequestModal> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: mQSize.height * 0.85,
+                        height: mQSize.height * 0.7,
                         width: mQSize.width * 0.8,
                         child: Image.asset(
                           "assets/images/map_loading.gif",
@@ -78,20 +78,19 @@ class _RideRequestModal extends State<RideRequestModal> {
         return Material(
             color: Colors.white,
             child: Container(
-                height: mQSize.height * 0.9,
+                height: mQSize.height * 0.8,
                 width: mQSize.width,
                 child: Container(
                   child: Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: 20),
                         decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
                                     color: Colors.grey[100], width: 2))),
                         child: ConstrainedBox(
                             constraints: BoxConstraints.expand(
-                              height: mQSize.height * 0.82,
+                              height: mQSize.height * 0.80,
                             ),
                             child: ListView(
                               children: snapshot.data.docs
@@ -101,7 +100,7 @@ class _RideRequestModal extends State<RideRequestModal> {
                                 if (snapshot.data.size != 0) {
                                   return new DriverResponseCard(
                                     isVisible: true,
-                                    timeleft: 20000,
+                                    timeleft: 10000,
                                     driverResponse: DriverResponse(
                                         studentName: response['student_name'],
                                         price: response['price'],
@@ -127,7 +126,7 @@ class _RideRequestModal extends State<RideRequestModal> {
                                 } else {
                                   return Container(
                                     child: SizedBox(
-                                      height: mQSize.height * 0.85,
+                                      height: mQSize.height * 0.8,
                                       width: mQSize.width * 0.8,
                                       child: Image.asset(
                                         "assets/images/map_loading.gif",
@@ -139,7 +138,7 @@ class _RideRequestModal extends State<RideRequestModal> {
                             )),
                       ),
                       Container(
-                        padding: EdgeInsets.only(top: 20),
+                        padding: EdgeInsets.only(top: 10),
                         child: RoundedButtonGradient(
                           text: "Hủy đặt xe",
                           color: Colors.red,

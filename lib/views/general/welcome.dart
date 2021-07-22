@@ -60,7 +60,7 @@ class Main extends StatelessWidget {
             ),
             SizedBox(height: mQSize.height * 0.02),
             Image.asset(
-              "assets/images/logos/hutechgo.png",
+              "assets/images/logos/hutechgo_logo.png",
               height: mQSize.width * 0.18,
             ),
             SizedBox(height: mQSize.height * 0.08),

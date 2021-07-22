@@ -32,7 +32,7 @@ class _ActivityState extends State<Activity> {
           elevation: 2.0,
           backgroundColor: Constants.primary,
           bottom: PreferredSize(
-              preferredSize: Size(double.infinity, 50.0),
+              preferredSize: Size(double.infinity, 10.0),
               child: Padding(
                 padding: EdgeInsets.only(top: 5.0, bottom: 15.0),
                 child: SegmentedControl(
@@ -40,7 +40,7 @@ class _ActivityState extends State<Activity> {
                   selectedColor: Colors.white,
                   unSelectedColor: Constants.primary,
                   borderColor: Colors.white,
-                  height: 45,
+                  height: 40,
                   width: mQSize.width * 0.45,
                   values: ['Hoạt động hiện tại', 'Lịch sử chuyến đi'],
                   onSelected: (index) {

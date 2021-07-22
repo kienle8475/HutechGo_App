@@ -1,0 +1,12 @@
+<config-file parent="CFBundleURLTypes" target="*-Info.plist">
+    <dict>
+        <key>CFBundleTypeRole</key>
+        <string>Editor</string>
+        <key>CFBundleURLName</key>
+        <string>REVERSED_CLIENT_ID</string>
+        <key>CFBundleURLSchemes</key>
+        <array>
+            <string>com.googleusercontent.apps.608474165833-4don1rcp3p06c67gs8271399meodgthi</string>
+        </array>
+    </dict>
+</config-file>

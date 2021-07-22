@@ -237,7 +237,7 @@ class _Booking extends State<Booking> {
                   ),
                   if (_directinfo != null)
                     Positioned(
-                      bottom: 400,
+                      bottom: 300,
                       child: Container(
                         height: 50,
                         padding: EdgeInsets.symmetric(
@@ -256,7 +256,7 @@ class _Booking extends State<Booking> {
                         child: Text(
                             '${_directinfo.totalDistance}, thời gian di chuyển ước tính: ${_directinfo.totalDuration}',
                             style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: Colors.blue,
                             )),
@@ -303,13 +303,10 @@ class _Booking extends State<Booking> {
                         borderRadius: new BorderRadius.only(
                             topLeft: const Radius.circular(0.0),
                             topRight: const Radius.circular(0.0))),
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
-                          height: 10,
-                        ),
                         CustomRadioCampusButton(
                           elevation: 0,
                           width: 80,
@@ -373,14 +370,14 @@ class _Booking extends State<Booking> {
                           children: [
                             Container(
                                 padding: EdgeInsets.only(
-                                  right: 15,
-                                  left: 15,
+                                  right: 3,
+                                  left: 3,
                                 ),
                                 child: Column(
                                   children: [
                                     Padding(
                                       padding:
-                                          EdgeInsets.only(top: 12, bottom: 12),
+                                          EdgeInsets.only(top: 6, bottom: 6),
                                       child: Row(
                                         children: [
                                           Icon(
@@ -393,33 +390,37 @@ class _Booking extends State<Booking> {
                                                   EdgeInsets.only(left: 20),
                                               child: Container(
                                                   child: GestureDetector(
-                                                onTap: () {
-                                                  _mapController.animateCamera(
-                                                      CameraUpdate.newCameraPosition(
-                                                          CameraPosition(
-                                                              target: LatLng(
-                                                                  _currentPosition
-                                                                      .latitude,
-                                                                  _currentPosition
-                                                                      .longitude),
-                                                              zoom: 15)));
-                                                },
-                                                child: Text(
-                                                  _startAddress,
-                                                  overflow: TextOverflow.fade,
-                                                  maxLines: 1,
-                                                  softWrap: false,
-                                                  style: TextStyle(
-                                                      color: Colors.grey[700],
-                                                      fontSize: 18),
-                                                ),
-                                              )))
+                                                      onTap: () {
+                                                        _mapController.animateCamera(
+                                                            CameraUpdate.newCameraPosition(CameraPosition(
+                                                                target: LatLng(
+                                                                    _currentPosition
+                                                                        .latitude,
+                                                                    _currentPosition
+                                                                        .longitude),
+                                                                zoom: 15)));
+                                                      },
+                                                      child: SizedBox(
+                                                        width:
+                                                            mQSize.width * 0.8,
+                                                        child: Text(
+                                                          _startAddress,
+                                                          overflow:
+                                                              TextOverflow.fade,
+                                                          maxLines: 1,
+                                                          softWrap: false,
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .grey[700],
+                                                              fontSize: 18),
+                                                        ),
+                                                      ))))
                                         ],
                                       ),
                                     ),
                                     Padding(
                                       padding:
-                                          EdgeInsets.only(top: 12, bottom: 12),
+                                          EdgeInsets.only(top: 6, bottom: 6),
                                       child: Row(
                                         children: [
                                           Icon(
@@ -492,8 +493,8 @@ class _Booking extends State<Booking> {
                             RoundedButtonBorder(
                               text: "Hẹn giờ",
                               color: Constants.primary,
-                              height: 50,
-                              width: mQSize.width * 0.25,
+                              height: 45,
+                              width: mQSize.width * 0.27,
                               press: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) => Rating()));
@@ -502,8 +503,8 @@ class _Booking extends State<Booking> {
                             RoundedButtonGradient(
                               text: "Yêu cầu chuyến đi",
                               color: Constants.primary,
-                              height: 50,
-                              width: mQSize.width * 0.58,
+                              height: 45,
+                              width: mQSize.width * 0.56,
                               press: () {
                                 showCupertinoModalBottomSheet(
                                     expand: true,

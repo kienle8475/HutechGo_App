@@ -4,6 +4,7 @@ import 'package:hutech_go/components/custom_radio_grouped_button/CustomButtons/B
 import 'package:hutech_go/components/custom_radio_grouped_button/CustomButtons/CustomCheckBoxGroup.dart';
 import 'package:hutech_go/utils/constants.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hutech_go/views/general/home.dart';
 import 'package:intl/intl.dart';
 import 'dart:math' as math;
 
@@ -50,7 +51,7 @@ class _Rating extends State<Rating> {
                   ),
                   child: Card(
                     child: SizedBox(
-                      height: mQSize.height * 0.58,
+                      height: mQSize.height * 0.54,
                       width: mQSize.width * 0.8,
                       child: Container(
                         margin: new EdgeInsets.only(
@@ -72,7 +73,7 @@ class _Rating extends State<Rating> {
                             Padding(
                               padding: EdgeInsets.only(top: 8, bottom: 12),
                               child: Text(
-                                "Nhật Lâm".toUpperCase(),
+                                "Trung Kiên".toUpperCase(),
                                 style: TextStyle(
                                     color: Constants.primary,
                                     fontSize: 20,
@@ -100,6 +101,29 @@ class _Rating extends State<Rating> {
                             ),
                             Row(
                               children: [
+                                // Container(
+                                //   padding: EdgeInsets.only(right: 15, left: 15),
+                                //   child: TextField(
+                                //     decoration: InputDecoration(
+                                //       hintText:
+                                //           "Chia sẻ cảm nhận của bạn nhé...",
+                                //       hintStyle:
+                                //           TextStyle(color: Constants.light),
+                                //       filled: true,
+                                //       fillColor: Colors.grey[100],
+                                //       enabledBorder: OutlineInputBorder(
+                                //           borderRadius: BorderRadius.all(
+                                //               Radius.circular(4)),
+                                //           borderSide: BorderSide(
+                                //               color: Colors.transparent)),
+                                //       focusedBorder: OutlineInputBorder(
+                                //           borderRadius: BorderRadius.all(
+                                //               Radius.circular(4)),
+                                //           borderSide: BorderSide(
+                                //               color: Constants.secondary)),
+                                //     ),
+                                //   ),
+                                // ),
                                 Expanded(
                                   child: CustomCheckBoxGroup(
                                     padding: mQSize.height * 0.017,
@@ -109,7 +133,7 @@ class _Rating extends State<Rating> {
                                     horizontal: true,
                                     absoluteZeroSpacing: false,
                                     defaultSelected: null,
-                                    selectedColor: Constants.secondary,
+                                    selectedColor: Constants.primary,
                                     unSelectedColor: Colors.white,
                                     enableShape: true,
                                     space: 0.2,
@@ -130,7 +154,7 @@ class _Rating extends State<Rating> {
                                     ],
                                     buttonTextStyle: ButtonTextStyle(
                                         selectedColor: Colors.white,
-                                        unSelectedColor: Constants.secondary,
+                                        unSelectedColor: Constants.primary,
                                         textStyle: TextStyle(fontSize: 16)),
                                     checkBoxButtonValues: (value) {
                                       print(value);
@@ -146,7 +170,7 @@ class _Rating extends State<Rating> {
                                     horizontal: true,
                                     absoluteZeroSpacing: false,
                                     defaultSelected: null,
-                                    selectedColor: Constants.secondary,
+                                    selectedColor: Constants.primary,
                                     unSelectedColor: Colors.white,
                                     enableShape: true,
                                     space: 0.2,
@@ -167,7 +191,7 @@ class _Rating extends State<Rating> {
                                     ],
                                     buttonTextStyle: ButtonTextStyle(
                                         selectedColor: Colors.white,
-                                        unSelectedColor: Constants.secondary,
+                                        unSelectedColor: Constants.primary,
                                         textStyle: TextStyle(fontSize: 16)),
                                     checkBoxButtonValues: (value) {
                                       print(value);
@@ -175,27 +199,6 @@ class _Rating extends State<Rating> {
                                   ),
                                 ),
                               ],
-                            ),
-                            Container(
-                              padding: EdgeInsets.only(right: 15, left: 15),
-                              child: TextField(
-                                decoration: InputDecoration(
-                                  hintText: "Chia sẻ cảm nhận của bạn nhé...",
-                                  hintStyle: TextStyle(color: Constants.light),
-                                  filled: true,
-                                  fillColor: Colors.grey[100],
-                                  enabledBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(4)),
-                                      borderSide: BorderSide(
-                                          color: Colors.transparent)),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(4)),
-                                      borderSide: BorderSide(
-                                          color: Constants.secondary)),
-                                ),
-                              ),
                             ),
                           ],
                         ),
@@ -219,7 +222,7 @@ class _Rating extends State<Rating> {
                   ),
                   child: Card(
                     child: SizedBox(
-                      height: mQSize.height * 0.15,
+                      height: mQSize.height * 0.13,
                       width: mQSize.width * 0.8,
                       child: Container(
                         margin: new EdgeInsets.only(
@@ -246,11 +249,18 @@ class _Rating extends State<Rating> {
                                           ),
                                           Padding(
                                             padding: EdgeInsets.only(left: 20),
-                                            child: Text(
-                                              "26/5 Phan Chu Trinh, Quận 9, HCMC",
-                                              style: TextStyle(
-                                                  color: Colors.grey[700],
-                                                  fontSize: 14),
+                                            child: SizedBox(
+                                              width: 225.0,
+                                              child: Text(
+                                                "26/5 Phan Chu Trinh, Quận 9, HCMC",
+                                                maxLines: 1,
+                                                overflow: TextOverflow.fade,
+                                                softWrap: false,
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
                                             ),
                                           )
                                         ],
@@ -283,34 +293,18 @@ class _Rating extends State<Rating> {
                                           ),
                                           Padding(
                                             padding: EdgeInsets.only(left: 20),
-                                            child: Text(
-                                              "Hutech A Campus - 475A Điện Biên Phủ",
-                                              style: TextStyle(
-                                                  color: Colors.grey[700]),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.only(top: 20, bottom: 0),
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            LineIcons.moneyBill,
-                                            color: Constants.secondary,
-                                            size: 24.0,
-                                          ),
-                                          Padding(
-                                            padding: EdgeInsets.only(left: 20),
-                                            child: Text(
-                                              formatCurrency.format(5000) +
-                                                  " VNĐ ",
-                                              style: TextStyle(
-                                                  color: Colors.grey[700],
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18),
+                                            child: SizedBox(
+                                              width: 225.0,
+                                              child: Text(
+                                                "Hutech A Campus - 475A Điện Biên Phủ",
+                                                maxLines: 1,
+                                                overflow: TextOverflow.fade,
+                                                softWrap: false,
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.grey,
+                                                ),
+                                              ),
                                             ),
                                           )
                                         ],
@@ -335,8 +329,8 @@ class _Rating extends State<Rating> {
                             RoundedButtonFill(
                                 color: Constants.primary,
                                 text: "Cần trợ giúp",
-                                height: 50,
-                                width: mQSize.width * 0.43,
+                                height: 48,
+                                width: mQSize.width * 0.42,
                                 press: () {
                                   Navigator.pushNamed(
                                       context, Rating.routeName);
@@ -344,11 +338,10 @@ class _Rating extends State<Rating> {
                             RoundedButtonFill(
                                 color: Constants.primary,
                                 text: "Gửi đánh giá",
-                                height: 50,
-                                width: mQSize.width * 0.43,
+                                height: 48,
+                                width: mQSize.width * 0.42,
                                 press: () {
-                                  Navigator.pushNamed(
-                                      context, Rating.routeName);
+                                  Navigator.pushNamed(context, Home.routeName);
                                 }),
                           ],
                         ))
@@ -372,9 +365,10 @@ class _Rating extends State<Rating> {
                         ],
                       ),
                       child: CircleAvatar(
-                        radius: 75,
+                        radius: 65,
                         backgroundColor: Colors.white,
-                        // backgroundImage: AssetImage("assets/images/avatar.jpg"),
+                        backgroundImage: NetworkImage(
+                            "https://firebasestorage.googleapis.com:443/v0/b/hutech-peaga-xyz.appspot.com/o/images%2Fstudents%2Fprofiles%2F1711062340%2F70948163-ec20-4e57-bc8c-e92e0702e5be.png?alt=media&token=34466ad3-77af-40d6-a82e-e28fe5b2f6e9"),
                       )),
                 )),
           ],

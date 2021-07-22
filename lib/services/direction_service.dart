@@ -19,6 +19,7 @@ class DirectionService {
       'key': GoogleMapService.MAP_API_KEY
     });
     if (response.statusCode == 200) {
+      print(response.data);
       return Direction.fromMap(response.data);
     }
     return null;

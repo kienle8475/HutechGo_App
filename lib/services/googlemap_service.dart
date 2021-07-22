@@ -1,3 +1,3 @@
-class GMService {
-  static const API_KEY = "AIzaSyCyDsHJfbw4_fPN5qpkovbQeLvtn0UIRSw";
+class GoogleMapService {
+  static const MAP_API_KEY = "AIzaSyD4mmocrwmoTjuAn1QiMP-pNGo1LYAaEOo";
 }

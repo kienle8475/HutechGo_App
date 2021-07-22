@@ -56,17 +56,17 @@ class Header extends StatelessWidget {
             // alignment: Alignment.bottomCenter,
             children: <Widget>[
               Container(
-                height: mQSize.height * 0.2,
+                height: mQSize.height * 0.15,
                 width: mQSize.width,
                 color: Colors.white,
                 child: Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 40, right: 40),
+                      padding: EdgeInsets.only(left: 25, right: 25),
                       child: Transform.rotate(
                           angle: 180 * math.pi / 85,
                           child: CircleAvatar(
-                            radius: 75,
+                            radius: 50,
                             backgroundColor: Colors.white,
                             backgroundImage: NetworkImage(student.profileImage),
                           )),
@@ -75,12 +75,11 @@ class Header extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(top: 80, bottom: 5),
+                          padding: EdgeInsets.only(top: 30, bottom: 5),
                           child: Padding(
                             padding: EdgeInsets.only(top: 0),
                             child: Text(
-                              (student.lastName + " " + student.firstName)
-                                  .toUpperCase(),
+                              (student.studentName).toUpperCase(),
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                   // color: Constants.primary,
@@ -91,34 +90,31 @@ class Header extends StatelessWidget {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 0, bottom: 0),
-                          child: Padding(
-                              padding: EdgeInsets.only(top: 0),
-                              child: Row(
-                                children: [
-                                  TextButton(
-                                      onPressed: () {},
-                                      style: TextButton.styleFrom(
-                                          padding: EdgeInsets.zero),
-                                      child: Row(
-                                        children: [
-                                          Text("Thay đổi thông tin  ",
-                                              textAlign: TextAlign.start,
-                                              style: TextStyle(
-                                                // color: Constants.primary,
-                                                fontSize: 16,
-                                                color: Colors.grey,
-                                              )),
-                                          Icon(
-                                            Icons.arrow_forward_ios,
-                                            size: 16,
-                                            color: Colors.grey,
-                                          )
-                                        ],
-                                      )),
-                                ],
-                              )),
-                        ),
+                            padding: EdgeInsets.only(top: 0, bottom: 0),
+                            child: Row(
+                              children: [
+                                TextButton(
+                                    onPressed: () {},
+                                    style: TextButton.styleFrom(
+                                        padding: EdgeInsets.zero),
+                                    child: Row(
+                                      children: [
+                                        Text("Thay đổi thông tin  ",
+                                            textAlign: TextAlign.start,
+                                            style: TextStyle(
+                                              // color: Constants.primary,
+                                              fontSize: 16,
+                                              color: Colors.grey,
+                                            )),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          size: 16,
+                                          color: Colors.grey,
+                                        )
+                                      ],
+                                    )),
+                              ],
+                            )),
                       ],
                     )
                   ],
@@ -131,20 +127,23 @@ class Header extends StatelessWidget {
                       SettingsList(
                         shrinkWrap: true,
                         backgroundColor: Colors.white,
-                        contentPadding: EdgeInsets.all(10),
+                        contentPadding: EdgeInsets.only(left: 10, right: 10),
                         sections: [
                           SettingsSection(
                             title: "Cài đặt",
-                            titlePadding: EdgeInsets.only(top: 20, left: 15),
+                            titleTextStyle: TextStyle(fontSize: 15),
+                            titlePadding: EdgeInsets.only(left: 15),
                             tiles: [
                               SettingsTile(
                                 title: "Thông báo",
+                                titleTextStyle: TextStyle(fontSize: 14),
                                 leading: Icon(Icons.notifications,
                                     color: Colors.yellow[600]),
                                 onPressed: (BuildContext context) {},
                               ),
                               SettingsTile(
                                 title: "Ngôn ngữ",
+                                titleTextStyle: TextStyle(fontSize: 14),
                                 leading:
                                     Icon(Icons.language, color: Colors.red),
                                 onPressed: (BuildContext context) {},
@@ -153,38 +152,42 @@ class Header extends StatelessWidget {
                           ),
                           SettingsSection(
                             title: "Thông tin chung",
-                            // titleTextStyle: TextStyle(
-                            //   color: Colors.grey
-                            // ),
-                            titlePadding: EdgeInsets.only(top: 15, left: 15),
+                            titleTextStyle: TextStyle(fontSize: 15),
+                            titlePadding: EdgeInsets.only(top: 5, left: 15),
                             tiles: [
                               SettingsTile(
-                                title: "Chính sách bảo mật",
+                                title: "Chính sách",
+                                titleTextStyle: TextStyle(fontSize: 14),
                                 leading: Icon(Icons.security,
                                     color: Constants.primary),
                                 onPressed: (BuildContext context) {},
                               ),
                               SettingsTile(
                                 title: "Điều khoản dịch vụ",
+                                titleTextStyle: TextStyle(fontSize: 14),
                                 leading: Icon(Icons.library_books,
                                     color: Constants.primary),
                                 onPressed: (BuildContext context) {},
                               ),
                               SettingsTile(
-                                title: "Trợ giúp và yêu cầu hỗ trợ",
+                                title: "Trợ giúp",
+                                titleTextStyle: TextStyle(fontSize: 14),
                                 leading:
                                     Icon(Icons.info, color: Constants.primary),
                                 onPressed: (BuildContext context) {},
                               ),
                               SettingsTile(
                                 title: "Giới thiệu bạn bè",
+                                titleTextStyle: TextStyle(fontSize: 14),
                                 leading: Icon(Icons.person_add,
                                     color: Constants.primary),
                                 onPressed: (BuildContext context) {},
                               ),
                               SettingsTile(
                                 title: "Đánh giá ứng dụng",
+                                titleTextStyle: TextStyle(fontSize: 14),
                                 subtitle: "v1.0.0",
+                                subtitleTextStyle: TextStyle(fontSize: 12),
                                 leading:
                                     Icon(Icons.star, color: Colors.yellow[600]),
                                 onPressed: (BuildContext context) {},
@@ -196,7 +199,7 @@ class Header extends StatelessWidget {
                     ],
                   )),
               Container(
-                padding: EdgeInsets.only(top: 20),
+                padding: EdgeInsets.only(top: 15),
                 child: Column(
                   children: [
                     RoundedButtonBorder(
@@ -204,7 +207,7 @@ class Header extends StatelessWidget {
                           ? "Chuyển chế độ tài xế"
                           : "Chuyển chế độ hành khách",
                       color: Constants.primary,
-                      height: 50,
+                      height: 45,
                       width: mQSize.width * 0.9,
                       press: () {
                         changeMode();
@@ -213,7 +216,7 @@ class Header extends StatelessWidget {
                     RoundedButtonBorder(
                       text: "Đăng xuất",
                       color: Colors.red,
-                      height: 50,
+                      height: 45,
                       width: mQSize.width * 0.9,
                       press: () {
                         Dialogs.materialDialog(

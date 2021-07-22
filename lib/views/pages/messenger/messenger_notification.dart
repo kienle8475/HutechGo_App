@@ -11,8 +11,8 @@ class MessengerNotification extends StatelessWidget {
       child: Column(
         children: [
           SizedBox(
-            height: mQSize.height * 0.6,
-            width: mQSize.width * 0.6,
+            height: mQSize.height * 0.58,
+            width: mQSize.width * 0.58,
             child: Image.asset(
               "assets/images/emptystate_noti.png",
             ),

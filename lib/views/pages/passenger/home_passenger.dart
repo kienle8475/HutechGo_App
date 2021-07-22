@@ -31,8 +31,8 @@ class HomePassenger extends StatelessWidget {
                 border: Border.all(color: Constants.primary, width: 1),
                 borderRadius: BorderRadius.circular(8)),
             child: SizedBox(
-              height: mQSize.height * 0.31,
-              width: mQSize.width * 0.9,
+              height: mQSize.height * 0.3,
+              width: mQSize.width * 0.92,
               child: Column(
                 children: [
                   Padding(
@@ -46,13 +46,17 @@ class HomePassenger extends StatelessWidget {
                   Row(
                     children: [
                       Container(
-                        height: 160,
-                        width: 160,
-                        child: Image.network(student.profileImage),
+                        height: 140,
+                        width: 140,
+                        child: Image.network(
+                          student.profileImage,
+                          height: 14,
+                          width: 140,
+                        ),
                       ),
                       Container(
                         height: 140,
-                        width: mQSize.width - 225,
+                        width: mQSize.width - 180,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -63,10 +67,7 @@ class HomePassenger extends StatelessWidget {
                                     Padding(
                                       padding: EdgeInsets.only(top: 0),
                                       child: Text(
-                                        (student.lastName +
-                                                " " +
-                                                student.firstName)
-                                            .toUpperCase(),
+                                        (student.studentName).toUpperCase(),
                                         textAlign: TextAlign.start,
                                         style: TextStyle(
                                             // color: Constants.primary,
@@ -109,7 +110,7 @@ class HomePassenger extends StatelessWidget {
                                           params: Code39BarCodeParams(
                                             student.studentId,
                                             lineWidth:
-                                                1.4, // width for a single black/white bar (default: 2.0)
+                                                1.2, // width for a single black/white bar (default: 2.0)
                                             barHeight:
                                                 35.0, // height for the entire widget (default: 100.0)
                                             withText: false,
@@ -133,23 +134,16 @@ class HomePassenger extends StatelessWidget {
           ),
         ),
         Container(
-          padding: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.only(top: 10),
           child: Container(
             child: SizedBox(
-              height: mQSize.height * 0.50,
-              width: mQSize.width * 0.95,
+              height: mQSize.height * 0.40,
+              width: mQSize.width * 0.98,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // Container(
-                  //   padding: EdgeInsets.only(top: 20, bottom: 40),
-                  //   child: Image.asset(
-                  //     "assets/images/gotouni.png",
-                  //     height: mQSize.height * 0.2,
-                  //   ),
-                  // ),
                   RoundedButtonGradient(
                     text: "TÌM XE",
                     color: Colors.lightBlue,

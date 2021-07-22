@@ -1,17 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hutech_go/components/custom_appbar.dart';
 import 'package:hutech_go/components/custom_button.dart';
 import 'package:hutech_go/utils/constants.dart';
 import 'package:hutech_go/views/general/home.dart';
+import 'package:hutech_go/views/general/signup/profile_registraion.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class OtpConfirm extends StatefulWidget {
   final String verificationCode;
   final String phoneNumber;
-  OtpConfirm(this.verificationCode, this.phoneNumber);
+  final bool isLogin;
+  OtpConfirm(this.verificationCode, this.phoneNumber, this.isLogin);
 
   @override
   _OtpConfirm createState() => _OtpConfirm();
@@ -51,7 +52,6 @@ class _OtpConfirm extends State<OtpConfirm> {
     final mQSize = MediaQuery.of(context).size;
     return Scaffold(
       key: _scaffoldkey,
-      appBar: AppBarWBack(),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -63,7 +63,7 @@ class _OtpConfirm extends State<OtpConfirm> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    "assets/images/logos/text_logo.png",
+                    "assets/images/logos/hutechgo_logo.png",
                     width: mQSize.width * 0.8,
                   ),
                 ],
@@ -86,7 +86,7 @@ class _OtpConfirm extends State<OtpConfirm> {
                             "Nhập mã OTP được gửi đến ${widget.phoneNumber}",
                             style: TextStyle(
                               color: Colors.black87,
-                              fontSize: 16,
+                              fontSize: 15,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -170,10 +170,20 @@ class _OtpConfirm extends State<OtpConfirm> {
                                                         widget.verificationCode,
                                                     smsCode: value))
                                             .then((value) async {
-                                          Navigator.pushNamedAndRemoveUntil(
-                                              context,
-                                              Home.routeName,
-                                              (route) => false);
+                                          print(value);
+                                          widget.isLogin
+                                              ? Navigator
+                                                  .pushNamedAndRemoveUntil(
+                                                      context,
+                                                      Home.routeName,
+                                                      (route) => false)
+                                              : Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ProfileRegistration(
+                                                              value.user.uid,
+                                                              widget
+                                                                  .phoneNumber)));
                                         });
                                       } catch (e) {
                                         print(e);
